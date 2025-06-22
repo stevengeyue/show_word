@@ -1,0 +1,45 @@
+body {
+    font-family: 'Microsoft YaHei', sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f5f5f5;
+}
+
+h1 {
+    color: #333;
+    text-align: center;
+}
+
+#file-list {
+    width: 80%;
+    margin: 20px auto;
+    padding: 15px;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+#file-list h2 {
+    color: #444;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+#files {
+    list-style-type: none;
+    padding: 0;
+}
+
+#files li {
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background-color 0.2s;
+}
+
+#files li:hover {
+    background-color: #f8f8f8;
+}
+
+#files li:last-child {
+    border-bottom: none;
+}
