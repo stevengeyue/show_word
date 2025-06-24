@@ -32,14 +32,30 @@ document.addEventListener('DOMContentLoaded', function() {
         const li = document.createElement('li');
         li.textContent = file;
         li.style.cursor = 'pointer';
-        li.addEventListener('click', () => {
-            const fullPath = `d:/03-档案文件/show_word/projects/${file}`;
-            try {
-                window.open(`file:///${fullPath.replace(/\\/g, '/')}`, '_blank');
-            } catch (e) {
-                alert(`无法直接打开文件，请手动访问:\n${fullPath}`);
-            }
-        });
+        
+        // 标记文件夹
+        if (file.endsWith('/')) {
+            li.setAttribute('data-folder', 'true');
+            li.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const folderPath = `d:/03-档案文件/show_word/projects/${file}`;
+                try {
+                    // 尝试打开文件夹
+                    window.open(`file:///${folderPath.replace(/\\/g, '/')}`, '_blank');
+                } catch (e) {
+                    alert(`浏览器无法直接打开文件夹，请手动访问:\n${folderPath}\n或在文件资源管理器中打开`);
+                }
+            });
+        } else {
+            li.addEventListener('click', () => {
+                const fullPath = `d:/03-档案文件/show_word/projects/${file}`;
+                try {
+                    window.open(`file:///${fullPath.replace(/\\/g, '/')}`, '_blank');
+                } catch (e) {
+                    alert(`无法直接打开文件，请手动访问:\n${fullPath}`);
+                }
+            });
+        }
         filesList.appendChild(li);
     });
 });
