@@ -7,10 +7,10 @@ body {
     font-family: 'Microsoft YaHei', sans-serif;
     margin: 0;
     padding: 0;
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    background: #f5f7f9;
     min-height: 100vh;
     animation: fadeIn 0.5s ease-in;
-    color: #333;
+    color: #999;
 }
 
 .navbar {
@@ -69,7 +69,7 @@ body {
 }
 
 .blog-header h1 {
-    color: #2c3e50;
+    color: #999;
     font-size: 2.5rem;
     margin-bottom: 1rem;
     position: relative;
@@ -88,7 +88,7 @@ body {
 }
 
 .subtitle {
-    color: #7f8c8d;
+    color: #999;
     font-size: 1.2rem;
 }
 
@@ -120,7 +120,7 @@ body {
 }
 
 .post-card h2 a {
-    color: #2c3e50;
+    color: #999;
     text-decoration: none;
 }
 
@@ -234,7 +234,7 @@ body {
 .footer {
     text-align: center;
     padding: 2rem 0;
-    color: #7f8c8d;
+    color: #999;
     font-size: 0.9rem;
 }
 
