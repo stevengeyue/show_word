@@ -249,6 +249,32 @@ body.dark-mode {
     transform: translateY(-3px);
 }
 
+/* 头像样式 */
+.avatar-container {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 20px;
+}
+
+.avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid rgba(74, 109, 229, 0.2);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: var(--transition);
+}
+
+.avatar:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.dark-mode .avatar {
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
 /* 响应式设计 */
 @media (max-width: 768px) {
     .nav-links {

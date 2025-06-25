@@ -6,6 +6,21 @@
     <title>歌月菌的博客入口</title>
     <link rel="stylesheet" href="my-static-site/styles/styles.css">
     <style>
+        body {
+            position: relative;
+            overflow: hidden;
+        }
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(74,109,229,0.1) 0%, transparent 50%);
+            background-size: 100px 100px;
+            z-index: -1;
+        }
         .entry-container {
             display: flex;
             flex-direction: column;
