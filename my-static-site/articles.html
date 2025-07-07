@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>文章 - 歌月菌的博客</title>
-    <link rel="stylesheet" href="./styles/styles.css">
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/components.css">
+    <link rel="stylesheet" href="styles/animations.css">
 </head>
 <body>
     <nav class="navbar">
@@ -16,8 +18,15 @@
                 <li><a href="projects.html">项目</a></li>
                 <li><a href="about.html">关于</a></li>
             </ul>
-            <button class="theme-toggle" id="themeToggle">🌙</button>
+            <div class="theme-toggle" id="themeToggle">
+                <div class="toggle-track"></div>
+                <div class="toggle-handle">
+                    <div class="sun"><i class="fas fa-sun"></i></div>
+                    <div class="moon"><i class="fas fa-moon"></i></div>
+                </div>
+            </div>
         </div>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     </nav>
 
     <main class="container">
@@ -35,7 +44,7 @@
                     </div>
                     <div class="post-content">
                         <span class="post-tag">示例</span>
-<h2><a href="../projects/article/example_article.html">示例文章</a></h2>
+<h2><a href="projects/article/example_article.html">示例文章</a></h2>
                         <p class="excerpt">这是一个示例文章模板，用于展示博客文章的标准格式。</p>
                         <div class="post-meta">
                             <span>2025-06-26</span>
@@ -43,6 +52,24 @@
                         </div>
                     </div>
                 </article>
+
+
+                <article class="post-card">
+                    <div class="post-image">
+                        <div class="polygon-clip"></div>
+                    </div>
+                    <div class="post-content">
+                        <span class="post-tag">示例</span>
+<h2><a href="projects/article/example_article.html">示例文章</a></h2>
+                        <p class="excerpt">这是一个示例文章模板，用于展示博客文章的标准格式。</p>
+                        <div class="post-meta">
+                            <span>2025-06-26</span>
+                            <span>3分钟阅读</span>
+                        </div>
+                    </div>
+                </article>
+
+
             </section>
         </div>
     </main>
@@ -60,48 +87,7 @@
     </footer>
 
     <script src="scripts/script.js"></script>
-    <script>
-        // 主题切换功能
-        const themeToggle = document.getElementById('themeToggle');
-        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-        
-        // 检测系统主题偏好
-        if (prefersDarkScheme.matches) {
-            document.body.classList.add('dark-mode');
-            themeToggle.textContent = '☀️';
-        }
-        
-        // 主题切换按钮事件
-        themeToggle.addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-            const isDarkMode = document.body.classList.contains('dark-mode');
-            themeToggle.textContent = isDarkMode ? '☀️' : '🌙';
-            
-            // 保存用户偏好
-            localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
-        });
-        
-        // 加载保存的主题
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark') {
-            document.body.classList.add('dark-mode');
-            themeToggle.textContent = '☀️';
-        } else if (savedTheme === 'light') {
-            document.body.classList.remove('dark-mode');
-            themeToggle.textContent = '🌙';
-        }
-        
-        // 卡片悬停动画
-        const cards = document.querySelectorAll('.post-card');
-        cards.forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                card.style.transform = 'translateY(-5px)';
-            });
-            
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'translateY(0)';
-            });
-        });
-    </script>
+    <script src="scripts/theme.js"></script>
+    <script src="scripts/animations.js"></script>
 </body>
 </html>

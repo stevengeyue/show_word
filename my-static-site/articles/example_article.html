@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>示例文章 | 歌月菌的博客</title>
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="stylesheet" href="../styles/components.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">歌月菌</a>
+            <ul class="nav-links">
+                <li><a href="../index.html">首页</a></li>
+                <li><a href="../articles.html" class="active">文章</a></li>
+                <li><a href="../projects.html">项目</a></li>
+                <li><a href="../about.html">关于</a></li>
+            </ul>
+            <label class="theme-switch">
+                <input type="checkbox" id="themeToggle">
+                <span class="slider round"></span>
+            </label>
+        </div>
+    </nav>
+
+    <main class="article-container">
+        <article class="article-content">
+            <header>
+                <h1 class="article-title">现代Web开发技术概述</h1>
+                <div class="article-meta">
+                    <span class="publish-date">发布日期: 2025-07-07</span>
+                    <span class="reading-time">阅读时间: 8分钟</span>
+                    <span class="article-tag">技术</span>
+                </div>
+            </header>
+
+            <div class="article-body">
+                <h2>前端技术发展</h2>
+                <p>近年来，前端开发技术经历了飞速发展。从最初的HTML、CSS和JavaScript三剑客，到现在丰富的前端框架和工具链...</p>
+                
+                <h3>主流框架</h3>
+                <p>React、Vue和Angular是目前最流行的三大前端框架，各有特点：</p>
+                <ul>
+                    <li>React - Facebook开发，组件化思想</li>
+                    <li>Vue - 渐进式框架，易上手</li>
+                    <li>Angular - Google维护，全功能框架</li>
+                </ul>
+
+                <h2>后端技术趋势</h2>
+                <p>Node.js的出现让JavaScript可以用于后端开发，同时Go、Rust等新兴语言也在后端领域崭露头角...</p>
+
+                <div class="code-block">
+                    <pre><code>// 示例代码
+function greet(name) {
+    return `Hello, ${name}!`;
+}</code></pre>
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <script src="../scripts/theme.js"></script>
+</body>
+</html>

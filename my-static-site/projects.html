@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>项目文件 - 歌月菌的博客</title>
-    <link rel="stylesheet" href="./styles/styles.css">
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/components.css">
+    <link rel="stylesheet" href="styles/animations.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <nav class="navbar">
@@ -16,35 +19,245 @@
                 <li><a href="projects.html" class="active">项目</a></li>
                 <li><a href="about.html">关于</a></li>
             </ul>
-            <button class="theme-toggle" id="themeToggle">🌙</button>
+            <div class="theme-toggle" id="themeToggle">
+                <div class="toggle-track"></div>
+                <div class="toggle-handle">
+                    <div class="sun"><i class="fas fa-sun"></i></div>
+                    <div class="moon"><i class="fas fa-moon"></i></div>
+                </div>
+            </div>
         </div>
     </nav>
 
     <main class="container">
         <section class="blog-header">
-            <h1>项目文件列表</h1>
-            <p class="subtitle">我的项目文档和资源</p>
+            <h1>我的项目</h1>
+            <p class="subtitle">探索我的作品和资源</p>
         </section>
 
-        <div class="file-section">
-            <h2>项目文件列表</h2>
-            <div class="file-grid">
-                <ul>
-                    <li><a href="../projects/pdf/短时交通流量预测.pdf">短时交通流量预测.pdf</a></li>
-                    <li><a href="../projects/pdf/多元线性回归.pdf">多元线性回归.pdf</a></li>
-                    <li><a href="../projects/pdf/A题.pdf">A题.pdf</a></li>
-                    <li><a href="../projects/picture/教学管理系统ER图.png">教学管理系统ER图.png</a></li>
-                    <li><a href="../projects/picture/touxiang.jpg">touxiang.jpg</a></li>
-                    <li><a href="../projects/word/基于改进蚱蜢算法解决多区域经济调度问题.docx">基于改进蚱蜢算法解决多区域经济调度问题.docx</a></li>
-                    <li><a href="../projects/word/实践报告.doc">实践报告.doc</a></li>
-                    <li><a href="../projects/word/数据分析实验实践课报告.docx">数据分析实验实践课报告.docx</a></li>
-                    <li><a href="../projects/word/数学模型报告.docx">数学模型报告.docx</a></li>
-                    <li><a href="../projects/word/Python程序设计报告.docx">Python程序设计报告.docx</a></li>
-                    <li><a href="../projects/word/python作业.doc">python作业.doc</a></li>
-                    <li><a href="../projects/word/web应用开发实践报告.doc">web应用开发实践报告.doc</a></li>
-                </ul>
-            </div>
+        <!-- 项目分类导航 -->
+        <div class="project-categories">
+            <button class="category-btn active" data-category="all">全部</button>
+            <button class="category-btn" data-category="pdf">PDF文档</button>
+            <button class="category-btn" data-category="image">图片文件</button>
+            <button class="category-btn" data-category="doc">文档文件</button>
         </div>
+
+        <!-- PDF文档项目 -->
+        <section class="project-section" data-category="pdf">
+            <h2><i class="fas fa-file-pdf"></i> PDF文档</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>短时交通流量预测</h3>
+                        <p class="project-desc">关于城市交通流量预测的研究报告</p>
+                        <div class="project-meta">
+                            <span class="file-type">PDF</span>
+                            <span class="file-size">2.4MB</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="../projects/pdf/短时交通流量预测.pdf" class="view-btn" target="_blank">预览</a>
+                            <a href="../projects/pdf/短时交通流量预测.pdf" download class="download-btn">下载</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>多元线性回归</h3>
+                        <p class="project-desc">统计学多元线性回归分析报告</p>
+                        <div class="project-meta">
+                            <span class="file-type">PDF</span>
+                            <span class="file-size">1.8MB</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="../projects/pdf/多元线性回归.pdf" class="view-btn" target="_blank">预览</a>
+                            <a href="../projects/pdf/多元线性回归.pdf" download class="download-btn">下载</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>A题</h3>
+                        <p class="project-desc">数学建模A题报告</p>
+                        <div class="project-meta">
+                            <span class="file-type">PDF</span>
+                            <span class="file-size">2.1MB</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="../projects/pdf/A题.pdf" class="view-btn" target="_blank">预览</a>
+                            <a href="../projects/pdf/A题.pdf" download class="download-btn">下载</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 图片文件 -->
+        <section class="project-section" data-category="image">
+            <h2><i class="fas fa-image"></i> 图片文件</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-image"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>教学管理系统ER图</h3>
+                        <p class="project-desc">数据库设计ER图</p>
+                        <div class="project-meta">
+                            <span class="file-type">PNG</span>
+                            <span class="file-size">1.2MB</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="../projects/picture/教学管理系统ER图.png" class="view-btn" target="_blank">查看</a>
+                            <a href="../projects/picture/教学管理系统ER图.png" download class="download-btn">下载</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 文档文件 -->
+        <section class="project-section" data-category="doc">
+            <h2><i class="fas fa-file-word"></i> 文档文件</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-file-word"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>Python程序设计报告</h3>
+                        <p class="project-desc">Python课程设计实验报告</p>
+                        <div class="project-meta">
+                            <span class="file-type">DOCX</span>
+                            <span class="file-size">3.5MB</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="../projects/word/Python程序设计报告.docx" class="view-btn" target="_blank">预览</a>
+                            <a href="../projects/word/Python程序设计报告.docx" download class="download-btn">下载</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-file-word"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>基于改进蚱蜢算法</h3>
+                        <p class="project-desc">多区域经济调度问题解决方案</p>
+                        <div class="project-meta">
+                            <span class="file-type">DOCX</span>
+                            <span class="file-size">2.8MB</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="../projects/word/基于改进蚱蜢算法解决多区域经济调度问题.docx" class="view-btn" target="_blank">预览</a>
+                            <a href="../projects/word/基于改进蚱蜢算法解决多区域经济调度问题.docx" download class="download-btn">下载</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-file-word"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>数据分析实验报告</h3>
+                        <p class="project-desc">数据分析实践课程报告</p>
+                        <div class="project-meta">
+                            <span class="file-type">DOCX</span>
+                            <span class="file-size">2.2MB</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="../projects/word/数据分析实验实践课报告.docx" class="view-btn" target="_blank">预览</a>
+                            <a href="../projects/word/数据分析实验实践课报告.docx" download class="download-btn">下载</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-file-word"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>数学模型报告</h3>
+                        <p class="project-desc">数学建模课程报告</p>
+                        <div class="project-meta">
+                            <span class="file-type">DOCX</span>
+                            <span class="file-size">2.5MB</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="../projects/word/数学模型报告.docx" class="view-btn" target="_blank">预览</a>
+                            <a href="../projects/word/数学模型报告.docx" download class="download-btn">下载</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-file-word"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>Python作业</h3>
+                        <p class="project-desc">Python编程基础作业</p>
+                        <div class="project-meta">
+                            <span class="file-type">DOC</span>
+                            <span class="file-size">1.5MB</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="../projects/word/python作业.doc" class="view-btn" target="_blank">预览</a>
+                            <a href="../projects/word/python作业.doc" download class="download-btn">下载</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-file-word"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>Web开发报告</h3>
+                        <p class="project-desc">Web应用开发实践报告</p>
+                        <div class="project-meta">
+                            <span class="file-type">DOC</span>
+                            <span class="file-size">1.8MB</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="../projects/word/web应用开发实践报告.doc" class="view-btn" target="_blank">预览</a>
+                            <a href="../projects/word/web应用开发实践报告.doc" download class="download-btn">下载</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-file-word"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>实践报告</h3>
+                        <p class="project-desc">综合实践课程报告</p>
+                        <div class="project-meta">
+                            <span class="file-type">DOC</span>
+                            <span class="file-size">1.2MB</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="../projects/word/实践报告.doc" class="view-btn" target="_blank">预览</a>
+                            <a href="../projects/word/实践报告.doc" download class="download-btn">下载</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <footer class="footer">
@@ -60,36 +273,25 @@
     </footer>
 
     <script src="scripts/script.js"></script>
+    <script src="scripts/theme.js"></script>
+    <script src="scripts/animations.js"></script>
     <script>
-        // 主题切换功能
-        const themeToggle = document.getElementById('themeToggle');
-        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-        
-        // 检测系统主题偏好
-        if (prefersDarkScheme.matches) {
-            document.body.classList.add('dark-mode');
-            themeToggle.textContent = '☀️';
-        }
-        
-        // 主题切换按钮事件
-        themeToggle.addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-            const isDarkMode = document.body.classList.contains('dark-mode');
-            themeToggle.textContent = isDarkMode ? '☀️' : '🌙';
-            
-            // 保存用户偏好
-            localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+        // 项目分类筛选
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const category = btn.dataset.category;
+                document.querySelectorAll('.project-section').forEach(section => {
+                    if(category === 'all' || section.dataset.category === category) {
+                        section.style.display = 'block';
+                    } else {
+                        section.style.display = 'none';
+                    }
+                });
+            });
         });
-        
-        // 加载保存的主题
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark') {
-            document.body.classList.add('dark-mode');
-            themeToggle.textContent = '☀️';
-        } else if (savedTheme === 'light') {
-            document.body.classList.remove('dark-mode');
-            themeToggle.textContent = '🌙';
-        }
     </script>
 </body>
 </html>
