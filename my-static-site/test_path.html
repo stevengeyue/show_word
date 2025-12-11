@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试图片路径</title>
+    <style>
+        .test-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 20px;
+        }
+        .test-item {
+            height: 200px;
+            border: 2px solid #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+        .path1 {
+            background: url('../projects/picture/作业管理系统.png') center/cover;
+        }
+        .path2 {
+            background: url('../../projects/picture/作业管理系统.png') center/cover;
+        }
+        .path3 {
+            background: url('/projects/picture/作业管理系统.png') center/cover;
+        }
+        .path4 {
+            background: url('../../../projects/picture/作业管理系统.png') center/cover;
+        }
+    </style>
+</head>
+<body>
+    <h1>测试作业管理系统.png图片路径</h1>
+    <div class="test-container">
+        <div class="test-item path1">
+            路径1: ../projects/picture/作业管理系统.png
+        </div>
+        <div class="test-item path2">
+            路径2: ../../projects/picture/作业管理系统.png
+        </div>
+        <div class="test-item path3">
+            路径3: /projects/picture/作业管理系统.png
+        </div>
+        <div class="test-item path4">
+            路径4: ../../../projects/picture/作业管理系统.png
+        </div>
+    </div>
+</body>
+</html>

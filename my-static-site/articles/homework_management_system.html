@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>作业管理系统开发实践报告 - 歌月菌的博客</title>
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="stylesheet" href="../styles/components.css">
+    <link rel="stylesheet" href="../styles/animations.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .article-hero {
+            height: 400px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-image: url('../../projects/picture/作业管理系统.png');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.5s ease;
+        }
+        
+        .article-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.1));
+            transition: opacity 0.5s ease;
+            z-index: 1;
+        }
+
+        .article-hero.original-ratio:before {
+            opacity: 0.1;
+        }
+
+        .hero-title {
+            position: absolute;
+            bottom: 2rem;
+            left: 2rem;
+            color: white;
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            transition: all 0.5s ease;
+            z-index: 2;
+        }
+
+        .article-hero.original-ratio .hero-title {
+            bottom: 1rem;
+            left: 1rem;
+            font-size: 2rem;
+            color: #333;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+        }
+
+        .article-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            line-height: 1.8;
+        }
+
+        .article-meta {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .article-tag {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.2rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section h2 {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--primary-color);
+            position: relative;
+        }
+
+        .section h3 {
+            color: var(--text-color);
+            font-size: 1.5rem;
+            margin: 30px 0 20px 0;
+        }
+
+        .section h4 {
+            color: var(--text-color);
+            font-size: 1.2rem;
+            margin: 25px 0 15px 0;
+            font-weight: 600;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .info-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .info-card h4 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+fangda            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .tech-tag {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .tech-tag:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .table-container {
+            overflow-x: auto;
+xue            margin: 1.5rem 0;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--card-bg);
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-color);
+        }
+
+        th {
+            background: var(--primary-color);
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background: rgba(52, 152, 219, 0.05);
+        }
+
+        .highlight-box {
+            background: var(--card-bg);
+            border-left: 4px solid var(--primary-color);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+            border: 1px solid var(--border-color);
+        }
+
+        .highlight-box h4 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+fdfdfd
+        .feature-list li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .feature-list li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .team-member {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .member-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .download-section {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin: 10px;
+        }
+
+        .download-btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .article-content {
+                padding: 40px 15px;
+            }
+            
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .dark-mode .article-hero.original-ratio {
+            background-color: #2d2f38;
+        }
+
+        .dark-mode .article-hero.original-ratio .hero-title {
+            color: #f5f5f5;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+        }
+
+        /* 暗夜模式下的表格样式优化 */
+        .dark-mode table {
+            background: var(--card-bg);
+            color: var(--text-color);
+        }
+
+        .dark-mode th {
+            background: var(--primary-color);
+            color: white;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .dark-mode td {
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            color: var(--text-color);
+        }
+
+        .dark-mode tr:hover {
+            background: rgba(52, 152, 219, 0.1);
+        }
+
+        .dark-mode .table-container {
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">歌月菌</a>
+            <ul class="nav-links">
+                <li><a href="../index.html">首页</a></li>
+                <li><a href="../articles.html">文章</a></li>
+                <li><a href="../projects.html">项目</a></li>
+                <li><a href="../about.html">关于</a></li>
+            </ul>
+            <label class="theme-switch">
+                <input type="checkbox" id="themeToggle">
+                <span class="slider round"></span>
+            </label>
+        </div>
+    </nav>
+
+    <main class="article-container">
+        <div class="article-hero" id="articleHero">
+            <h1 class="hero-title">作业管理系统</h1>
+        </div>
+
+        <article class="article-content">
+            <header>
+                <div class="article-meta">
+                    <span class="publish-date">发布日期: 2025-01-15</span>
+                    <span class="reading-time">阅读时间: 15分钟</span>
+                    <span class="article-tag">全栈开发</span>
+                </div>
+            </header>
+
+            <section class="section">
+            <h2><i class="fas fa-info-circle"></i> 项目概况</h2>
+            
+            <div class="info-grid">
+                <div class="info-card">
+                    <h4><i class="fas fa-project-diagram"></i> 项目基本信息</h4>
+                    <ul class="feature-list">
+                        <li><strong>项目名称：</strong>作业管理系统</li>
+                        <li><strong>开发团队：</strong>孙明扬、刘伟涛、李瀚学、陆奕非</li>
+                        <li><strong>所属学院：</strong>数理学院</li>
+                        <li><strong>专业方向：</strong>信息与计算科学</li>
+                        <li><strong>课程名称：</strong>数据库应用训练（课程编号：2812103）</li>
+                        <li><strong>完成时间：</strong>2025年6月23日</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <h4><i class="fas fa-bullseye"></i> 项目目的与意义</h4>
+                    <div class="highlight-box">
+                        <h4>解决传统作业管理痛点</h4>
+                        <p>传统作业管理依赖纸质文档、电子邮件或零散工具，存在信息分散、查找困难、提交版本混乱、批改状态不透明、成绩归档繁琐等问题，导致学生易错过截止日期，教师陷入重复性事务劳动。</p>
+                    </div>
+                    
+                    <h4>核心价值体现</h4>
+                    <ul class="feature-list">
+                        <li><strong>提升教学效率：</strong>教师可便捷发布作业、自动汇总提交情况，减少事务性工作</li>
+                        <li><strong>推动过程性评价落地：</strong>记录作业提交时间、成绩等关键数据，完整呈现学生学习过程</li>
+                        <li><strong>支撑教育数字化转型：</strong>作为智慧校园生态核心业务节点，提供基础数据支撑</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2><i class="fas fa-cogs"></i> 系统需求分析</h2>
+            
+            <h3>系统功能模块图</h3>
+            <div class="info-grid
+                <div class="info-card" style="grid-column: 1 / -1;">
+                    <h4><i class="fas fa-th-large"></i> 功能模块架构图</h4>
+                    <div style="text-align: center; margin: 20px 0;">
+                        <img src="../images/projects/homework_management_modules.png" alt="作业管理系统功能模块图" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                        <p style="margin-top: 10px; color: var(--text-muted); font-size: 0.9rem;">图3：作业管理系统功能模块划分图</p>
+                    </div>
+                </div>
+            </div>
+            
+            <h3>核心功能模块划分</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>模块名称</th>
+                            <th>核心功能</th>
+                            <th>面向用户</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>家目录模块</td>
+                            <td>项目简介展示、实验目标呈现、导航入口（登录/注册）</td>
+                            <td>所有用户</td>
+                        </tr>
+                        <tr>
+                            <td>登录界面模块</td>
+                            <td>用户身份验证（基于JWT鉴权）</td>
+                            <td>所有用户</td>
+                        </tr>
+                        <tr>
+                            <td>注册功能模块</td>
+                            <td>学生注册（填写年级、专业）、教师注册（填写职称、院系）</td>
+                            <td>新用户</td>
+                        </tr>
+                        <tr>
+                            <td>教师主界面模块</td>
+                            <td>个人信息查看、作业发布/删除、学生提交情况查阅、成绩评定/调整、课程创建</td>
+                            <td>教师</td>
+                        </tr>
+                        <tr>
+                            <td>学生主界面模块</td>
+                            <td>个人信息查看、课程选修管理、作业提交/删除、成绩查询</td>
+                            <td>学生</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>技术栈选型</h3>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h4><i class="fab fa-python"></i> 后端技术：Python（FastAPI）</h4>
+                    <p><strong>技术优势：</strong>基于Starlette异步引擎与Pydantic数据模型，支持异步非阻塞架构（每秒数万级请求处理），自动生成交互文档并完成参数验证，类型约束减少40%人工错误。</p>
+                    <p><strong>应用场景：</strong>构建RESTful接口服务、用户认证、数据处理与存储交互。</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">FastAPI</span>
+                        <span class="tech-tag">JWT</span>
+                        <span class="tech-tag">Pydantic</span>
+                        <span class="tech-tag">异步编程</span>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h4><i class="fab fa-vuejs"></i> 前端技术：Vue.js</h4>
+                    <p><strong>技术优势：</strong>轻量级架构（核心库仅23KB），响应式数据绑定与组件化开发，Vue 3.0 Composition API优化代码组织，Vite构建工具实现毫秒级热更新。</p>
+                    <p><strong>应用场景：</strong>页面渲染、用户交互、状态管理（Pinia）、路由控制（Vue Router）。</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Vue 3</span>
+                        <span class="tech-tag">Composition API</span>
+                        <span class="tech-tag">Pinia</span>
+                        <span class="tech-tag">Vite</span>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h4><i class="fas fa-database"></i> 数据库技术：MySQL</h4>
+                    <p><strong>技术优势：</strong>高可靠性（ACID事务支持）、千万级QPS处理能力，InnoDB引擎提供行级锁与崩溃恢复，MySQL 8.0支持窗口函数、JSON存储与原子DDL。</p>
+                    <p><strong>应用场景：</strong>存储用户信息、课程数据、作业信息、提交记录等核心业务数据。</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">MySQL 8.0</span>
+                        <span class="tech-tag">InnoDB</span>
+                        <span class="tech-tag">ACID</span>
+                        <span class="tech-tag">事务处理</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2><i class="fas fa-sitemap"></i> 系统设计</h2>
+            
+            <div class="highlight-box">
+                <h4>核心实体及关系</h4>
+                <p><strong>用户（User）：</strong>分为学生（Student）和教师（Teacher）两个子实体（继承关系）。</p>
+                <p><strong>核心实体：</strong>班级（Class）、课程（Course）、作业（Assignment）、提交记录（Submission）、权限（Permission）。</p>
+                <p><strong>关键关系：</strong></p>
+                <ul class="feature-list">
+                    <li>教师与班级/课程：一对多关系（1个教师可教多个班级/课程）</li>
+                    <li>学生与班级/课程：多对多关系（1个学生可属于多个班级/选修多门课程）</li>
+                    <li>教师与作业：一对多关系（1个教师可发布多个作业）</li>
+                    <li>学生与作业：多对多关系（通过提交记录关联，含提交时间、文件路径等属性）</li>
+                </ul>
+            </div>
+            
+            <h3>逻辑结构设计（数据库表结构）</h3>
+            <h4>核心数据表</h4>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>表名</th>
+                            <th>主键</th>
+                            <th>核心字段</th>
+                            <th>外键关联</th>
+                            <th>功能描述</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>users</td>
+                            <td>user_id</td>
+                            <td>username（唯一）、password、email（唯一）</td>
+                            <td>-</td>
+                            <td>存储所有用户基础账户信息</td>
+                        </tr>
+                        <tr>
+                            <td>student</td>
+                            <td>student_id</td>
+                            <td>grade、major</td>
+                            <td>user_id（关联users）</td>
+                            <td>存储学生扩展信息</td>
+                        </tr>
+                        <tr>
+                            <td>teacher</td>
+                            <td>teacher_id</td>
+                            <td>title、department</td>
+                            <td>user_id（关联users）</td>
+                            <td>存储教师扩展信息</td>
+                        </tr>
+                        <tr>
+                            <td>class</td>
+                            <td>class_id</td>
+                            <td>class_name、grade</td>
+                            <td>-</td>
+                            <td>存储班级基本信息</td>
+                        </tr>
+                        <tr>
+                            <td>course</td>
+                            <td>course_id</td>
+                            <td>course_name、credit</td>
+                            <td>-</td>
+                            <td>存储课程基本信息</td>
+                        </tr>
+                        <tr>
+                            <td>assignment</td>
+                            <td>assignment_id</td>
+                            <td>content、deadline、status</td>
+                            <td>teacher_id（关联teacher）</td>
+                            <td>存储作业发布信息</td>
+                        </tr>
+                        <tr>
+                            <td>submission</td>
+                            <td>submission_id</td>
+                            <td>submit_time、file_path</td>
+                            <td>student_id（关联student）、assignment_id（关联assignment）</td>
+                            <td>存储作业提交记录</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h4>关联表（多对多关系）</h4>
+            <ul class="feature-list">
+                <li><strong>student_class：</strong>学生-班级关联（复合主键：student_id、class_id）</li>
+                <li><strong>student_course：</strong>学生-课程关联（复合主键：student_id、course_id，含grade字段）</li>
+                <li><strong>teacher_class：</strong>教师-班级关联（复合主键：teacher_id、class_id）</li>
+                <li><strong>teacher_course：</strong>教师-课程关联（复合主键：teacher_id、course_id）</li>
+                <li><strong>user_permission：</strong>用户-权限关联（复合主键：user_id、permission_id）</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2><i class="fas fa-code"></i> 系统实现</h2>
+            
+            <h3>核心模块实现详情</h3>
+            
+            <div class="info-grid">
+                <div class="info-card">
+                    <h4><i class="fas fa-home"></i> 家目录模块</h4>
+                    <p><strong>前端实现：</strong>基于Vue 3组合式API，Vite构建工具优化加载性能，Tailwind CSS实现响应式布局，分为顶部标题区、中部实验目标区、底部操作按钮区。</p>
+                    <p><strong>核心功能：</strong>静态展示项目简介与8项实验目标（掌握Vue 3 API、前后端分离CRUD、JWT鉴权等），提供登录/注册导航入口。</p>
+                    <p><strong>性能优化：</strong>静态资源预加载，首屏呈现时间≤500毫秒，适配移动端与桌面端。</p>
+                </div>
+
+                <div class="info-card">
+                    <h4><i class="fas fa-user-plus"></i> 注册功能模块</h4>
+                    <p><strong>前端交互：</strong>支持学生/教师身份切换，表单字段动态适配（学生显示年级/专业，教师显示职称/院系），实时表单验证（密码一致性、必填项校验）。</p>
+                    <p><strong>后端处理：</strong>RESTful风格注册接口，密码加密存储，事务处理确保数据完整性，冲突检测（用户名/邮箱重复）并返回明确错误提示。</p>
+                    <p><strong>安全设计：</strong>密码掩码显示，敏感数据加密传输，角色数据隔离存储。</p>
+                </div>
+            </div>
+
+            <h3>教师主界面模块</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>子模块</th>
+                            <th>核心功能</th>
+                            <th>技术实现</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>个人信息展示</td>
+                            <td>展示工号、姓名、职称、院系等</td>
+                            <td>前端卡片式布局，后端JWT身份验证+GET接口数据查询</td>
+                        </tr>
+                        <tr>
+                            <td>作业管理</td>
+                            <td>发布（填写内容、选择截止时间）、查看提交列表、下载/删除作业文件</td>
+                            <td>前端表单验证+日历组件，后端POST接口创建作业、Blob对象处理文件下载</td>
+                        </tr>
+                        <tr>
+                            <td>成绩管理</td>
+                            <td>选择课程-学生，输入并修改成绩（0-150分限制）</td>
+                            <td>前端三级联级选择，后端PUT接口验证关联关系并更新成绩</td>
+                        </tr>
+                        <tr>
+                            <td>课程创建</td>
+                            <td>输入课程名称与学分，完成课程创建</td>
+                            <td>前端极简表单设计，后端POST接口自动关联教师ID</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>学生主界面模块</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>子模块</th>
+                            <th>核心功能</th>
+                            <th>技术实现</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>个人信息展示</td>
+                            <td>展示学号、姓名、年级、专业及已修课程成绩</td>
+                            <td>前端响应式卡片布局，成绩低于60分红色警示</td>
+                        </tr>
+                        <tr>
+                            <td>选课管理</td>
+                            <td>查看可选课程列表，提交选课申请，避免重复选课</td>
+                            <td>前端表格展示+状态反馈，后端接口验证选课资格与容量限制</td>
+                        </tr>
+                        <tr>
+                            <td>作业提交</td>
+                            <td>选择作业、上传文件（支持拖拽）、查看提交历史、删除提交记录</td>
+                            <td>前端异步提交+进度显示，后端文件校验（类型/大小）、唯一文件名生成、存储路径记录</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>关键技术亮点</h3>
+            <div class="highlight-box">
+                <ul class="feature-list">
+                    <li><strong>前后端交互：</strong>基于axios实现异步网络请求，RESTful API标准化接口设计，JWT鉴权确保数据安全。</li>
+                    <li><strong>状态管理：</strong>采用Pinia统一管理用户状态、表单数据与操作状态，提升组件复用性。</li>
+                    <li><strong>数据库操作：</strong>事务处理保证多表关联数据一致性，索引优化提升查询效率，批量操作减少数据库压力。</li>
+                    <li><strong>响应式设计：</strong>全模块适配移动端与桌面端，交互反馈即时（如按钮禁用、加载提示、错误弹窗）。</li>
+                </ul>
+            </div>
+        </section>
+
+
+
+        <section class="section">
+            <h2><i class="fas fa-chart-line"></i> 项目总结与展望</h2>
+            
+            <div class="info-grid">
+                <div class="info-card">
+                    <h4><i class="fas fa-trophy"></i> 开发收获</h4>
+                    <ul class="feature-list">
+                        <li><strong>技术能力提升：</strong>掌握FastAPI后端接口开发、Vue 3组合式API、MySQL数据库设计与优化、前后端分离架构协作。</li>
+                        <li><strong>工程实践经验：</strong>理解模块化、组件化开发思想，学会使用Alembic进行数据库版本控制，掌握日志与单元测试调试方法。</li>
+                        <li><strong>业务逻辑梳理：</strong>深入理解作业管理全流程，实现权限分级、数据关联等核心业务场景。</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <h4><i class="fas fa-rocket"></i> 系统优化方向</h4>
+                    <p><strong>功能扩展：</strong>增加作业自动评分、课堂签到、在线答疑、成绩分布可视化、学习进度跟踪等模块。</p>
+                    <p><strong>体验优化：</strong>实现拖拽式课表安排、课程搜索筛选、作业草稿自动保存、移动端专属界面优化。</p>
+                    <p><strong>性能提升：</strong>采用分页加载、查询缓存、文件云端存储，支持大文件分块上传。</p>
+                    <p><strong>安全强化：</strong>增加邮箱验证、密码强度检测、操作日志审计、二次认证功能。</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="download-section">
+            <h2><i class="fas fa-download"></i> 相关资源下载</h2>
+            <p>获取更多项目相关资料和文档</p>
+            <div style="margin-top: 20px;">
+                <a href="../../projects/word/Python程序设计报告.docx" class="download-btn" download>
+                    <i class="fas fa-file-word"></i>
+                    Python程序设计报告
+                </a>
+                <a href="../images/projects/homework_management_screenshot.png" class="download-btn" download>
+                    <i class="fas fa-image"></i>
+                    系统截图
+                </a>
+            </div>
+        </section>
+
+        <section class="section" style="text-align: center; margin-top: 40px;">
+            <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+                <a href="../articles.html" class="view-btn">
+                    <i class="fas fa-arrow-left"></i>
+                    返回文章列表
+                </a>
+                <a href="../index.html" class="view-btn">
+                    <i class="fas fa-home"></i>
+                    返回首页
+                </a>
+            </div>
+        </section>
+        </article>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 歌月菌的博客. All rights reserved.</p>
+            <p>Powered by FastAPI + Vue.js + Love ❤️</p>
+        </div>
+    </footer>
+
+    <script src="../scripts/theme.js"></script>
+    <script>
+        // 图片显示模式切换功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const articleHero = document.getElementById('articleHero');
+            
+            // 获取背景图片URL
+            const bgImage = window.getComputedStyle(articleHero).backgroundImage;
+            const imageUrl = bgImage.replace(/url\(['"]?([^'"\)]+)['"]?\)/i, '$1');
+            
+            if (imageUrl && imageUrl !== 'none') {
+                const img = new Image();
+                img.onload = function() {
+                    const aspectRatio = this.height / this.width;
+                    
+                    articleHero.addEventListener('click', function() {
+                        if (this.classList.contains('original-ratio')) {
+                            // 切换回覆盖模式
+                            this.classList.remove('original-ratio');
+                            this.style.height = '400px';
+                        } else {
+                            // 切换到原始比例模式
+                            this.classList.add('original-ratio');
+                            const containerWidth = this.offsetWidth;
+                            const newHeight = containerWidth * aspectRatio;
+                            this.style.height = Math.max(newHeight, 400) + 'px';
+                        }
+                    });
+                };
+                img.src = imageUrl;
+            }
+        });
+    </script>
+</body>
+</html>

@@ -113,3 +113,28 @@ a:hover {
     align-items: center;
   }
 }
+
+/* 暗夜模式下的表格样式优化 */
+.dark-mode table {
+  background: var(--card-bg);
+  color: var(--text);
+}
+
+.dark-mode th {
+  background: var(--primary);
+  color: white;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.dark-mode td {
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  color: var(--text);
+}
+
+.dark-mode tr:hover {
+  background: rgba(52, 152, 219, 0.1);
+}
+
+.dark-mode .table-container {
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
