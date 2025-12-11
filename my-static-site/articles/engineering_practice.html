@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>参与生产实践，赋能数字化转型 | 歌月菌的博客</title>
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="stylesheet" href="../styles/components.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .article-hero {
+            width: 100%;
+            height: 400px;
+            background-image: url('../../projects/picture/实习信息图.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+            margin-bottom: 2rem;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.5s ease;
+        }
+        
+        .article-hero.original-ratio {
+            height: auto;
+            min-height: 400px;
+            background-size: contain;
+            background-color: #f5f5f5;
+        }
+        
+        .article-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.1));
+            transition: opacity 0.5s ease;
+        }
+        
+        .article-hero.original-ratio::before {
+            opacity: 0.1;
+        }
+        
+        .hero-title {
+            position: absolute;
+            bottom: 2rem;
+            left: 2rem;
+            color: white;
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            transition: all 0.5s ease;
+            z-index: 2;
+        }
+        
+        .article-hero.original-ratio .hero-title {
+            bottom: 1rem;
+            left: 1rem;
+            font-size: 2rem;
+            color: #333;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+        }
+        
+        .article-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .section {
+            margin-bottom: 3rem;
+        }
+        
+        .section h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .section h3 {
+            color: var(--text-color);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .subsection {
+            margin-bottom: 2rem;
+        }
+        
+        .highlight-box {
+            background: var(--card-bg);
+            border-left: 4px solid var(--primary-color);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .tech-tag {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .project-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .project-card h4 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        
+        .achievement-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .achievement-list li {
+            background: rgba(52, 152, 219, 0.1);
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--primary-color);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.5rem;
+            top: 1.5rem;
+            width: 12px;
+            height: 12px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            border: 3px solid var(--bg-color);
+        }
+        
+        .conclusion {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-top: 2rem;
+            text-align: center;
+        }
+        
+        .conclusion h3 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+        
+        .word-link {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            margin: 0.5rem;
+            transition: background 0.3s ease;
+        }
+        
+        .word-link:hover {
+            background: var(--secondary-color);
+        }
+        
+        .skill-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .skill-item {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+        
+        .skill-item i {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .skill-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">歌月菌</a>
+            <ul class="nav-links">
+                <li><a href="../index.html">首页</a></li>
+                <li><a href="../articles.html" class="active">文章</a></li>
+                <li><a href="../projects.html">项目</a></li>
+                <li><a href="../about.html">关于</a></li>
+            </ul>
+            <label class="theme-switch">
+                <input type="checkbox" id="themeToggle">
+                <span class="slider round"></span>
+            </label>
+        </div>
+    </nav>
+
+    <main class="article-container">
+        <div class="article-hero">
+            <h1 class="hero-title">扎根工业一线，以技术赋能电力数字化转型</h1>
+        </div>
+        
+        <article class="article-content">
+            <header>
+                <div class="article-meta">
+                    <span class="publish-date">发布日期: 2025-01-20</span>
+                    <span class="reading-time">阅读时间: 15分钟</span>
+                    <span class="article-tag">工程实践</span>
+                </div>
+            </header>
+
+            <div class="article-body">
+                <div class="section">
+                    <h2>🎯 引言：技术赋能工业的使命</h2>
+                    <p>作为上海电力大学信息与计算科学专业的一名开发者，我始终聚焦能源产业数字化转型的核心需求，在算法创新、全栈开发与工业现场实践的三重历练中，构建起"数学建模+工程落地"的复合型能力体系。从电厂热电联产系统的算法优化，到工业物联网的边缘计算部署，再到企业级管理系统的架构搭建，我的每一步实践都围绕"用技术解决实际工业问题"展开，在电力行业的特殊场景中沉淀了兼具深度与实用性的技术能力。</p>
+                </div>
+
+                <div class="section">
+                    <h2>⚡ 一、电力系统优化：算法创新的工业价值</h2>
+                    
+                    <div class="project-card">
+                        <h4>🔥 热电联产系统经济调度优化</h4>
+                        <p>在电力系统优化领域，热电联产（CHP）的经济调度问题一直是行业痛点——如何在满足供电、供热双重需求的前提下，兼顾成本控制与设备安全，是典型的非线性复杂优化难题。</p>
+                        
+                        <div class="highlight-box">
+                            <h4>💡 核心技术突破</h4>
+                            <p>传统算法在处理发电机组"禁止运行区间"等约束时，常陷入局部最优，难以平衡优化精度与计算效率。为此，我主导开展《基于改进蚱蜢算法的热电联产系统经济调度优化》项目，创新性地引入<strong>动态惩罚因子机制</strong>：当算法搜索结果接近约束边界时，自动增强惩罚力度以规避不可行解；当结果远离边界时，减弱惩罚以提升全局搜索能力。</p>
+                        </div>
+                        
+                        <ul class="achievement-list">
+                            <li><strong>📈 性能提升：</strong>经MATLAB仿真验证，改进后的算法计算效率提升35%，优化精度提高12%</li>
+                            <li><strong>✅ 约束处理：</strong>在处理功率平衡、设备安全等约束时成功率达98%</li>
+                            <li><strong>🌱 环保价值：</strong>为电厂实现"降本增效"与碳排放控制提供了切实可行的技术方案</li>
+                        </ul>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">MATLAB</span>
+                            <span class="tech-tag">智能优化算法</span>
+                            <span class="tech-tag">热电联产</span>
+                            <span class="tech-tag">经济调度</span>
+                            <span class="tech-tag">动态惩罚机制</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>🌐 二、边缘计算实践：从算法到硬件的跨越</h2>
+                    
+                    <div class="project-card">
+                        <h4>🤖 WebYOLOX平台：工业物联网的边缘计算部署</h4>
+                        <p>跳出纯算法研究的框架，我在宁波工业互联网研究院实习期间，深耕软硬件结合的边缘计算领域，完成了从"纸上谈兵"到"落地实操"的跨越。</p>
+                        
+                        <div class="highlight-box">
+                            <h4>🔧 全栈开发实践</h4>
+                            <p>负责WebYOLOX平台的前后端全栈开发，采用<strong>Vue.js构建9个核心监控页面</strong>，实现工业设备状态的实时可视化；同时基于<strong>Python完成后端逻辑搭建</strong>，将YOLOX目标检测模型成功部署在树莓派等资源受限的嵌入式设备上。</p>
+                        </div>
+                        
+                        <ul class="achievement-list">
+                            <li><strong>💻 前端开发：</strong>Vue.js构建9个核心监控页面，实现工业设备状态实时可视化</li>
+                            <li><strong>🔄 后端架构：</strong>Python完成业务逻辑，支撑AI模型部署与数据处理</li>
+                            <li><strong>🧠 AI模型部署：</strong>YOLOX目标检测模型在树莓派等嵌入式设备成功部署</li>
+                            <li><strong>📊 全流程覆盖：</strong>CVAT数据标注、模型训练调参、mAP性能评估全流程</li>
+                            <li><strong>🤖 系统集成：</strong>视觉识别模块与自动浇花机器人等控制程序集成联调</li>
+                        </ul>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">Vue.js</span>
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">YOLOX</span>
+                            <span class="tech-tag">树莓派</span>
+                            <span class="tech-tag">CVAT</span>
+                            <span class="tech-tag">边缘计算</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>💼 三、企业级系统：工业标准下的全栈架构</h2>
+                    
+                    <div class="project-card">
+                        <h4>📋 基于FastAPI+Vue.js+MySQL的全栈作业管理系统</h4>
+                        <p>针对传统作业管理中信息分散、流程繁琐的痛点，与团队共同设计开发了一套企业级管理系统，充分体现了我的软件工程素养与系统架构能力。</p>
+                        
+                        <div class="highlight-box">
+                            <h4>🏗️ 技术架构亮点</h4>
+                            <p>后端利用<strong>FastAPI的异步非阻塞架构</strong>支撑高并发请求，结合JWT实现精细化身份鉴权；前端采用<strong>Vue 3组合式API与Pinia状态管理</strong>，打造响应式交互体验；数据层通过合理设计ER图，利用MySQL的事务处理保证数据一致性。</p>
+                        </div>
+                        
+                        <ul class="achievement-list">
+                            <li><strong>⚡ 后端性能：</strong>FastAPI异步非阻塞架构，支撑高并发请求处理</li>
+                            <li><strong>🔐 安全设计：</strong>JWT实现精细化身份鉴权，保障系统安全</li>
+                            <li><strong>🎨 前端体验：</strong>Vue 3组合式API与Pinia状态管理，响应式交互</li>
+                            <li><strong>🗄️ 数据架构：</strong>合理设计ER图，涵盖用户、课程、作业提交记录等核心实体</li>
+                            <li><strong>✅ 数据一致性：</strong>MySQL事务处理保证数据完整性与一致性</li>
+                            <li><strong>🐳 工业标准：</strong>严格遵循工业级开发标准，覆盖需求分析、数据库设计、Docker部署全生命周期</li>
+                        </ul>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">FastAPI</span>
+                            <span class="tech-tag">Vue.js</span>
+                            <span class="tech-tag">MySQL</span>
+                            <span class="tech-tag">JWT</span>
+                            <span class="tech-tag">Pinia</span>
+                            <span class="tech-tag">Docker</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>🔧 四、工业现场：一线实践的深度洞察</h2>
+                    
+                    <div class="project-card">
+                        <h4>🏭 宁波港捷智能科技：工业设备安装技术员</h4>
+                        <p>技术的价值最终要在现场落地中体现。在宁波港捷智能科技担任工业设备安装技术员期间，我深入5家工厂生产一线，用两个月时间完成7套智能工业设备的定位、线路铺设与安装调试。</p>
+                        
+                        <div class="highlight-box">
+                            <h4>🛠️ 现场挑战与解决</h4>
+                            <p>面对现场复杂的电气连接问题与机械兼容性难题，我摒弃"实验室思维"，与工厂技术团队紧密协作，快速排查故障、优化安装方案，确保所有项目均在规定工期内通过验收。</p>
+                        </div>
+                        
+                        <ul class="achievement-list">
+                            <li><strong>🏢 覆盖范围：</strong>深入5家工厂生产一线，理解实际工业环境</li>
+                            <li><strong>⚙️ 项目规模：</strong>7套智能工业设备定位、线路铺设与安装调试</li>
+                            <li><strong>🔍 问题解决：</strong>快速排查电气连接问题与机械兼容性难题</li>
+                            <li><strong>🤝 团队协作：</strong>与工厂技术团队紧密协作，优化安装方案</li>
+                            <li><strong>⏰ 项目管理：</strong>所有项目均在规定工期内通过验收</li>
+                        </ul>
+                        
+                        <div class="highlight-box">
+                            <h4>💭 实践感悟</h4>
+                            <p>这段一线经历不仅磨练了我吃苦耐劳的意志，更让我深刻理解了工业现场的实际需求与作业流程，为后续技术开发贴合实际应用场景奠定了坚实基础。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>🎯 五、技术能力矩阵：复合型人才的构建</h2>
+                    
+                    <div class="skill-grid">
+                        <div class="skill-item">
+                            <i class="fas fa-brain"></i>
+                            <h4>算法研发</h4>
+                            <p>数值分析、运筹优化、智能算法设计，为工业问题提供数学建模与优化解决方案</p>
+                        </div>
+                        
+                        <div class="skill-item">
+                            <i class="fas fa-code"></i>
+                            <h4>全栈开发</h4>
+                            <p>Vue.js前端、Python/FastAPI后端、MySQL数据库，构建企业级Web应用系统</p>
+                        </div>
+                        
+                        <div class="skill-item">
+                            <i class="fas fa-microchip"></i>
+                            <h4>边缘计算</h4>
+                            <p>嵌入式设备部署、AI模型优化、工业物联网集成，实现软硬件一体化解决方案</p>
+                        </div>
+                        
+                        <div class="skill-item">
+                            <i class="fas fa-industry"></i>
+                            <h4>工业实践</h4>
+                            <p>现场设备安装、故障诊断、项目管理，深入理解工业场景实际需求</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="timeline">
+                        <h2>📈 六、成长轨迹：从理论到实践的演进</h2>
+                        
+                        <div class="timeline-item">
+                            <h4>🎓 学术基础</h4>
+                            <p><strong>上海电力大学信息与计算科学专业</strong> - 构建扎实的数学基础与计算思维能力</p>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <h4>🔬 算法研究</h4>
+                            <p><strong>热电联产系统优化项目</strong> - 将理论知识转化为解决实际工业问题的算法方案</p>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <h4>💻 技术实践</h4>
+                            <p><strong>WebYOLOX平台开发</strong> - 全栈开发能力与AI模型部署经验的积累</p>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <h4>🏗️ 系统架构</h4>
+                            <p><strong>企业级作业管理系统</strong> - 工业标准下的软件工程与项目管理能力</p>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <h4>🔧 现场落地</h4>
+                            <p><strong>工业设备安装与调试</strong> - 深入一线，理解工业现场的实际需求与挑战</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="conclusion">
+                        <h3>🚀 未来展望：持续深耕电力数字化</h3>
+                        <p>从MATLAB算法仿真的严谨推演，到FastAPI+Vue.js的全栈开发，再到工厂一线的设备调试，我的技术成长之路始终紧扣电力行业的数字化转型需求。我既具备数值分析、运筹优化等算法研究能力，能为电厂核心生产环节提供技术优化方案；又拥有全栈开发与工业落地的实战经验，能将抽象的技术模型转化为切实可用的系统与设备。</p>
+                        
+                        <p><strong>未来，我将继续深耕电力行业，以"技术深度+工程实践"的双重优势，为企业数字化、智能化发展注入更多动能。</strong></p>
+                    </div>
+                </div>
+
+                <div class="section" style="text-align: center;">
+                    <h2>📄 相关文档下载</h2>
+                    <p>点击下方链接下载相关的技术文档和项目报告，获取更详细的技术实现细节。</p>
+                    
+                    <a href="../../projects/word/基于改进蚱蜢算法解决多区域经济调度问题.docx" class="word-link" download>
+                        <i class="fas fa-file-word"></i> 热电联产优化算法文档
+                    </a>
+                    
+                    <a href="../../projects/word/web应用开发实践报告.doc" class="word-link" download>
+                        <i class="fas fa-file-word"></i> Web应用开发实践报告
+                    </a>
+                    
+                    <a href="../../projects/word/数据分析实验实践课报告.docx" class="word-link" download>
+                        <i class="fas fa-file-word"></i> 数据分析实践报告
+                    </a>
+                </div>
+
+                <section class="section" style="text-align: center; margin-top: 40px;">
+                    <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+                        <a href="../articles.html" class="view-btn" style="display: inline-flex; align-items: center; gap: 8px;">
+                            <i class="fas fa-arrow-left"></i>
+                            返回文章列表
+                        </a>
+                        <a href="../index.html" class="view-btn" style="display: inline-flex; align-items: center; gap: 8px;">
+                            <i class="fas fa-home"></i>
+                            返回首页
+                        </a>
+                    </div>
+                </section>
+            </div>
+        </article>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="social-links">
+                <a href="#">📱</a>
+                <a href="#">🐦</a>
+                <a href="#">📸</a>
+                <a href="#">💼</a>
+            </div>
+            <p>&copy; 2025 歌月菌的博客. 保留所有权利.</p>
+        </div>
+    </footer>
+
+    <script src="../scripts/script.js"></script>
+    <script src="../scripts/theme.js"></script>
+    <script src="../scripts/animations.js"></script>
+    <script>
+        // 英雄区域图片显示模式切换
+        document.addEventListener('DOMContentLoaded', function() {
+            const articleHero = document.querySelector('.article-hero');
+            if (articleHero) {
+                // 获取背景图片URL
+                const bgImage = window.getComputedStyle(articleHero).backgroundImage;
+                const imageUrl = bgImage.replace(/url\(['"]?(.*?)['"]?\)/i, '$1');
+                
+                // 创建图片对象获取原始尺寸
+                const img = new Image();
+                img.onload = function() {
+                    const aspectRatio = this.height / this.width;
+                    
+                    // 点击切换显示模式
+                    articleHero.addEventListener('click', function() {
+                        this.classList.toggle('original-ratio');
+                        
+                        if (this.classList.contains('original-ratio')) {
+                            // 切换到原始比例模式
+                            const containerWidth = this.offsetWidth;
+                            const newHeight = containerWidth * aspectRatio;
+                            this.style.height = newHeight + 'px';
+                        } else {
+                            // 切换回覆盖模式
+                            this.style.height = '400px';
+                        }
+                    });
+                };
+                img.src = imageUrl;
+            }
+        });
+    </script>
+</body>
+</html>
