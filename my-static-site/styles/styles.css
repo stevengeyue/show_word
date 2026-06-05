@@ -272,6 +272,11 @@ input {
     letter-spacing: 0;
 }
 
+.home-title {
+    max-width: 720px;
+    font-size: clamp(3.2rem, 5.2vw, 4.9rem);
+}
+
 .hero-lede,
 .page-lede {
     max-width: 700px;
@@ -340,6 +345,84 @@ input {
 .hero-panel {
     overflow: hidden;
     min-height: 460px;
+}
+
+.gradient-hero-panel {
+    position: relative;
+    display: grid;
+    align-content: end;
+    gap: 14px;
+    padding: 22px;
+    background:
+        linear-gradient(135deg, rgba(15, 118, 110, 0.22), transparent 35%),
+        linear-gradient(225deg, rgba(79, 70, 229, 0.24), transparent 42%),
+        linear-gradient(315deg, rgba(217, 119, 6, 0.18), transparent 36%),
+        linear-gradient(160deg, #fff7ed, #eef2ff 48%, #ecfeff);
+}
+
+.dark-mode .gradient-hero-panel {
+    background:
+        linear-gradient(135deg, rgba(45, 212, 191, 0.24), transparent 35%),
+        linear-gradient(225deg, rgba(165, 180, 252, 0.2), transparent 42%),
+        linear-gradient(315deg, rgba(251, 191, 36, 0.15), transparent 36%),
+        linear-gradient(160deg, #17211c, #17152a 48%, #0e2a2a);
+}
+
+.gradient-hero-panel::before {
+    content: "";
+    position: absolute;
+    inset: 20px;
+    border: 1px solid color-mix(in srgb, var(--surface) 62%, transparent);
+    border-radius: var(--radius);
+    background:
+        linear-gradient(90deg, color-mix(in srgb, var(--surface) 18%, transparent) 1px, transparent 1px),
+        linear-gradient(color-mix(in srgb, var(--surface) 18%, transparent) 1px, transparent 1px);
+    background-size: 28px 28px;
+    pointer-events: none;
+}
+
+.gradient-hero-panel::after {
+    content: "";
+    position: absolute;
+    right: 38px;
+    top: 38px;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0));
+    opacity: 0.75;
+    pointer-events: none;
+}
+
+.gradient-card {
+    position: relative;
+    z-index: 1;
+    max-width: 420px;
+    padding: 16px;
+    border: 1px solid color-mix(in srgb, var(--surface) 70%, transparent);
+    border-radius: var(--radius);
+    background: color-mix(in srgb, var(--surface) 72%, transparent);
+    backdrop-filter: blur(14px);
+    box-shadow: var(--shadow-soft);
+}
+
+.gradient-card span {
+    color: var(--primary-strong);
+    font-size: 0.78rem;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+.gradient-card strong {
+    display: block;
+    margin-top: 4px;
+    font-size: clamp(1.9rem, 4vw, 3.2rem);
+    line-height: 1;
+}
+
+.gradient-card p {
+    margin: 8px 0 0;
+    color: var(--muted);
 }
 
 .graph-stage {
@@ -1132,6 +1215,10 @@ th {
     .hero-title,
     .page-title {
         font-size: clamp(2rem, 12vw, 3.25rem);
+    }
+
+    .home-title {
+        font-size: clamp(2.6rem, 13vw, 3.4rem);
     }
 
     .hero-panel,

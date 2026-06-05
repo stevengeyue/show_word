@@ -79,7 +79,7 @@ window.siteData = {
             readTime: "8分钟",
             href: "articles/static_site_design.html",
             image: "../projects/picture/作业管理系统.png",
-            summary: "记录这个博客从卡片站点升级为知识工作台时的结构、视觉和部署取舍。",
+            summary: "记录这个博客从卡片站点升级为个人博客内容门户时的结构、视觉和部署取舍。",
             question: "没有复杂框架，怎样做出内容清晰、动效克制的网站？",
             method: "设计令牌、原生脚本、静态部署",
             color: "lime"
