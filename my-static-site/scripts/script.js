@@ -22,7 +22,9 @@
         return `
             <article class="post-card reveal tone-${article.color || "teal"}">
                 <a class="post-image" href="${resolveHref(article.href)}">
-                    <img src="${resolveHref(article.image)}" alt="${article.title}">
+                    <span>${article.tag}</span>
+                    <strong>${article.title}</strong>
+                    <em>${article.date}</em>
                 </a>
                 <div class="post-content">
                     <span class="post-tag">${article.tag}</span>
