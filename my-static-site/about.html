@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>关于 - 歌月菌的博客</title>
+    <meta name="description" content="歌月菌的个人介绍、技术栈和能力路线。">
+    <title>关于 - 歌月菌的知识工作台</title>
     <link rel="stylesheet" href="styles/styles.css">
     <link rel="stylesheet" href="styles/components.css">
     <link rel="stylesheet" href="styles/animations.css">
@@ -12,76 +13,84 @@
     <nav class="navbar">
         <div class="nav-container">
             <a href="index.html" class="logo">歌月菌</a>
-            <ul class="nav-links">
+            <ul class="nav-links" aria-label="主导航">
                 <li><a href="index.html">首页</a></li>
                 <li><a href="articles.html">文章</a></li>
                 <li><a href="projects.html">项目</a></li>
                 <li><a href="about.html" class="active">关于</a></li>
             </ul>
-            <div class="theme-toggle" id="themeToggle">
-                <div class="toggle-track"></div>
-                <div class="toggle-handle">
-                    <div class="sun"><i class="fas fa-sun"></i></div>
-                    <div class="moon"><i class="fas fa-moon"></i></div>
-                </div>
-            </div>
+            <button class="theme-toggle" id="themeToggle" type="button"></button>
         </div>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     </nav>
 
-    <main class="container">
-        <section class="blog-header content-center">
-            <h1 class="text-center">关于我</h1>
-            <p class="subtitle text-center">一个技术爱好者</p>
+    <main class="site-main">
+        <section class="site-shell blog-header page-transition">
+            <div>
+                <p class="eyebrow">About Me</p>
+                <h1 class="page-title">关于歌月菌</h1>
+                <p class="page-lede">一个把算法、数据、工程和表达放在同一张桌面上整理的人。</p>
+            </div>
         </section>
 
-        <div class="content-wrapper">
-            <section class="about-content">
-                <div class="post-card">
-                    <div class="avatar-circle">
-                        <img src="../projects/picture/touxiang.jpg" alt="歌月菌头像">
-                    </div>
-                    <div class="post-content content-center">
-                        <h2 class="text-center">歌月菌</h2>
-                        <p class="text-center">技术爱好者</p>
-                        <div class="post-meta">
-                            <a href="https://github.com/stevengeyue" class="profile-link">GitHub</a>
-                        </div>
+        <section class="site-shell about-layout">
+            <aside class="about-card reveal">
+                <div class="avatar-circle">
+                    <img src="../projects/picture/touxiang.jpg" alt="歌月菌头像">
+                </div>
+                <h2>歌月菌</h2>
+                <p>技术爱好者，关注数学建模、智能优化、数据科学和全栈开发。</p>
+                <div class="contact-links">
+                    <a class="contact-link" href="https://github.com/stevengeyue">GitHub</a>
+                    <a class="contact-link" href="articles.html">文章</a>
+                </div>
+            </aside>
+
+            <div>
+                <div class="about-card reveal">
+                    <h2>技术栈</h2>
+                    <p>这次站点更新选择纯静态技术栈，方便 Netlify 直接发布，也减少维护成本。</p>
+                    <div class="skill-cloud">
+                        <span>HTML5</span>
+                        <span>CSS Design Tokens</span>
+                        <span>Vanilla JavaScript</span>
+                        <span>Canvas Knowledge Graph</span>
+                        <span>Responsive UI</span>
+                        <span>Netlify Static Deploy</span>
                     </div>
                 </div>
 
-                <div class="about-text">
-                    <h3>个人简介</h3>
-                    <p>你好，我是歌月菌，歌月的菌。</p>
-                    
-                    <h3>技术栈</h3>
-                    <ul class="skills skill-cloud">
-                        <li>HTML/CSS/JavaScript</li>
-                        <li>Vue/React</li>
-                        <li>Node.js</li>
-                        <li>Python</li>
-                        <li>AI</li>
-                        <li>生活小技巧</li>
-                    </ul>
+                <div class="timeline">
+                    <div class="timeline-item reveal">
+                        <strong>智能优化</strong>
+                        <p>关注混合启发式算法、约束处理和经济调度场景。</p>
+                    </div>
+                    <div class="timeline-item reveal">
+                        <strong>数据科学</strong>
+                        <p>从交通预测、统计模型到深度学习方法做体系化整理。</p>
+                    </div>
+                    <div class="timeline-item reveal">
+                        <strong>工程实践</strong>
+                        <p>用 FastAPI、Vue、MySQL 等栈理解业务系统的建模与落地。</p>
+                    </div>
                 </div>
-            </section>
-        </div>
+            </div>
+        </section>
     </main>
 
     <footer class="footer">
         <div class="container">
+            <p>&copy; 2026 歌月菌的知识工作台</p>
             <div class="social-links">
-                <a href="#">📱</a>
-                <a href="#">🐦</a>
-                <a href="#">📸</a>
-                <a href="#">💼</a>
+                <a href="index.html" aria-label="首页">H</a>
+                <a href="articles.html" aria-label="文章">A</a>
+                <a href="projects.html" aria-label="项目">P</a>
             </div>
-            <p>&copy; 2025 歌月菌的博客. 保留所有权利.</p>
         </div>
     </footer>
 
-    <script src="scripts/script.js"></script>
+    <script src="scripts/site-data.js"></script>
     <script src="scripts/theme.js"></script>
+    <script src="scripts/script.js"></script>
     <script src="scripts/animations.js"></script>
 </body>
 </html>

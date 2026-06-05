@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>文章 - 歌月菌的博客</title>
+    <meta name="description" content="歌月菌的文章索引，包含智能优化、数据科学、工程实践与全栈开发。">
+    <title>文章索引 - 歌月菌的知识工作台</title>
     <link rel="stylesheet" href="styles/styles.css">
     <link rel="stylesheet" href="styles/components.css">
     <link rel="stylesheet" href="styles/animations.css">
@@ -12,112 +13,44 @@
     <nav class="navbar">
         <div class="nav-container">
             <a href="index.html" class="logo">歌月菌</a>
-            <ul class="nav-links">
+            <ul class="nav-links" aria-label="主导航">
                 <li><a href="index.html">首页</a></li>
                 <li><a href="articles.html" class="active">文章</a></li>
                 <li><a href="projects.html">项目</a></li>
                 <li><a href="about.html">关于</a></li>
             </ul>
-            <div class="theme-toggle" id="themeToggle">
-                <div class="toggle-track"></div>
-                <div class="toggle-handle">
-                    <div class="sun"><i class="fas fa-sun"></i></div>
-                    <div class="moon"><i class="fas fa-moon"></i></div>
-                </div>
-            </div>
+            <button class="theme-toggle" id="themeToggle" type="button"></button>
         </div>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     </nav>
 
-    <main class="container">
-        <section class="blog-header">
-            <h1>所有文章</h1>
-            <p class="subtitle">探索我的思考与分享</p>
+    <main class="site-main">
+        <section class="site-shell blog-header page-transition">
+            <div>
+                <p class="eyebrow">Article Index</p>
+                <h1 class="page-title">研究笔记索引</h1>
+                <p class="page-lede">文章页负责记录“为什么”和“怎么做”：算法推导、模型对比、系统设计、工程复盘都集中在这里。</p>
+            </div>
         </section>
 
-        <div class="content-wrapper">
-            <section class="blog-posts">
-                
-                <article class="post-card">
-                    <div class="post-image">
-                        <img src="../projects/picture/蚂蚱算法信息图.png" alt="基于改进蚱蜢算法解决多区域经济调度问题" style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                    <div class="post-content">
-                        <span class="post-tag">智能优化</span>
-                        <h2><a href="articles/grasshopper_algorithm.html">基于改进蚱蜢算法解决多区域经济调度问题</a></h2>
-                        <p class="excerpt">提出混合蚱蜢算法（HGOA），通过重力搜索算子、鸽群地标算子和动态惩罚策略，为多区域经济调度提供高效解决方案。</p>
-                        <div class="post-meta">
-                            <span>2025-01-15</span>
-                            <span>20分钟阅读</span>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="post-card">
-                    <div class="post-image">
-                        <img src="../projects/picture/短时交通流量预测信息图.png" alt="短时交通流量预测研究" style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                    <div class="post-content">
-                        <span class="post-tag">数据科学</span>
-                        <h2><a href="articles/traffic_flow_prediction.html">短时交通流量预测研究</a></h2>
-                        <p class="excerpt">基于深度学习的城市交通流量预测方法研究，探讨ASTGCN等先进模型在智能交通系统中的应用。</p>
-                        <div class="post-meta">
-                            <span>2025-01-15</span>
-                            <span>15分钟阅读</span>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="post-card">
-                    <div class="post-image">
-                        <img src="../projects/picture/实习信息图.png" alt="扎根工业一线，以技术赋能电力数字化转型" style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                    <div class="post-content">
-                        <span class="post-tag">工程实践</span>
-                        <h2><a href="articles/engineering_practice.html">参与生产实践，赋能数字化转型</a></h2>
-                        <p class="excerpt">从算法创新到全栈开发，从边缘计算到工业现场，构建"数学建模+工程落地"的复合型能力体系。</p>
-                        <div class="post-meta">
-                            <span>2025-01-20</span>
-                            <span>15分钟阅读</span>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="post-card">
-                    <div class="post-image">
-                        <img src="../projects/picture/作业管理系统.png" alt="作业管理系统" style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                    <div class="post-content">
-                        <span class="post-tag">全栈开发</span>
-                        <h2><a href="articles/homework_management_system.html">作业管理系统开发实践</a></h2>
-                        <p class="excerpt">基于FastAPI + Vue.js + MySQL的全栈作业管理系统，实现学生作业提交、教师批改等核心功能。</p>
-                        <div class="post-meta">
-                            <span>2025-01-16</span>
-                            <span>25分钟阅读</span>
-                        </div>
-                    </div>
-                </article>
-
-
-
-            </section>
-        </div>
+        <section class="site-shell">
+            <div class="posts-grid" data-render="articles"></div>
+        </section>
     </main>
 
     <footer class="footer">
         <div class="container">
+            <p>&copy; 2026 歌月菌的知识工作台</p>
             <div class="social-links">
-                <a href="#">📱</a>
-                <a href="#">🐦</a>
-                <a href="#">📸</a>
-                <a href="#">💼</a>
+                <a href="index.html" aria-label="首页">H</a>
+                <a href="projects.html" aria-label="项目">P</a>
+                <a href="about.html" aria-label="关于">M</a>
             </div>
-            <p>&copy; 2025 歌月菌的博客. 保留所有权利.</p>
         </div>
     </footer>
 
-    <script src="scripts/script.js"></script>
+    <script src="scripts/site-data.js"></script>
     <script src="scripts/theme.js"></script>
+    <script src="scripts/script.js"></script>
     <script src="scripts/animations.js"></script>
 </body>
 </html>

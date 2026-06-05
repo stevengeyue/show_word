@@ -3,585 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>项目文件 - 歌月菌的博客</title>
+    <meta name="description" content="歌月菌的项目资料库，包含 PDF、图片与文档资源。">
+    <title>项目资料库 - 歌月菌的知识工作台</title>
     <link rel="stylesheet" href="styles/styles.css">
     <link rel="stylesheet" href="styles/components.css">
     <link rel="stylesheet" href="styles/animations.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        /* 项目卡片样式重构 */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 30px;
-            margin: 30px 0;
-        }
-        
-        .project-card {
-            background: var(--card-bg, #fff);
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            overflow: hidden;
-            position: relative;
-            border: 1px solid rgba(0,0,0,0.05);
-        }
-        
-        .project-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
-        }
-        
-        .project-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary, #3498db), var(--accent, #e74c3c));
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .project-card:hover::before {
-            opacity: 1;
-        }
-        
-        .project-icon {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 80px;
-            margin: 20px 0;
-            position: relative;
-        }
-        
-        .project-icon i {
-            font-size: 2.5rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            background: linear-gradient(135deg, var(--primary, #3498db), var(--accent, #e74c3c));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .project-card:hover .project-icon i {
-            transform: scale(1.1) translateX(5px);
-            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
-        }
-        
-        .project-content {
-            padding: 0 25px 25px;
-            text-align: center;
-        }
-        
-        .project-card h3 {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 12px;
-            color: var(--text, #333);
-            line-height: 1.4;
-        }
-        
-        .project-desc {
-            color: var(--text-muted, #666);
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin-bottom: 20px;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-        
-        .project-meta {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 20px;
-            font-size: 0.85rem;
-        }
-        
-        .file-type {
-            background: rgba(52, 152, 219, 0.1);
-            color: var(--primary, #3498db);
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-weight: 500;
-        }
-        
-        .file-size {
-            color: #999;
-            font-weight: 400;
-        }
-        
-        .project-actions {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        
-        .view-btn, .download-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 8px 16px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: all 0.2s ease;
-            border: 2px solid transparent;
-        }
-        
-        .view-btn {
-            background: var(--primary, #3498db);
-            color: white;
-        }
-        
-        .view-btn:hover {
-            background: var(--accent, #e74c3c);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-        
-        .download-btn {
-            background: transparent;
-            color: var(--primary, #3498db);
-            border: 2px solid var(--primary, #3498db);
-        }
-        
-        .download-btn:hover {
-            background: var(--primary, #3498db);
-            color: white;
-            transform: translateY(-1px);
-        }
-        
-        /* 响应式设计 */
-        @media (max-width: 768px) {
-            .projects-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-            
-            .project-card {
-                margin: 0 10px;
-            }
-            
-            .project-actions {
-                flex-direction: column;
-            }
-        }
-        
-        /* 暗夜模式适配 */
-        .dark-mode .project-card {
-            background: var(--card-bg, #2d2f38);
-            border-color: rgba(255,255,255,0.1);
-        }
-        
-        .dark-mode .file-type {
-            background: rgba(52, 152, 219, 0.2);
-        }
-        
-        /* 加载动画 */
-        .project-card {
-            animation: fadeInUp 0.6s ease-out forwards;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        
-        .project-card:nth-child(1) { animation-delay: 0.1s; }
-        .project-card:nth-child(2) { animation-delay: 0.2s; }
-        .project-card:nth-child(3) { animation-delay: 0.3s; }
-        .project-card:nth-child(4) { animation-delay: 0.4s; }
-        .project-card:nth-child(5) { animation-delay: 0.5s; }
-        .project-card:nth-child(6) { animation-delay: 0.6s; }
-        .project-card:nth-child(7) { animation-delay: 0.7s; }
-        .project-card:nth-child(8) { animation-delay: 0.8s; }
-        
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        /* 分类按钮样式优化 */
-        .category-btn {
-            background: transparent;
-            border: 2px solid var(--primary, #3498db);
-            color: var(--primary, #3498db);
-            padding: 8px 16px;
-            border-radius: 25px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .category-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: var(--primary, #3498db);
-            transition: left 0.3s ease;
-            z-index: -1;
-        }
-        
-        .category-btn:hover::before {
-            left: 0;
-        }
-        
-        .category-btn:hover {
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-        
-        .category-btn.active {
-            background: var(--primary, #3498db);
-            color: white;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-    </style>
 </head>
 <body>
     <nav class="navbar">
         <div class="nav-container">
             <a href="index.html" class="logo">歌月菌</a>
-            <ul class="nav-links">
+            <ul class="nav-links" aria-label="主导航">
                 <li><a href="index.html">首页</a></li>
                 <li><a href="articles.html">文章</a></li>
                 <li><a href="projects.html" class="active">项目</a></li>
                 <li><a href="about.html">关于</a></li>
             </ul>
-            <div class="theme-toggle" id="themeToggle">
-                <div class="toggle-track"></div>
-                <div class="toggle-handle">
-                    <div class="sun"><i class="fas fa-sun"></i></div>
-                    <div class="moon"><i class="fas fa-moon"></i></div>
-                </div>
-            </div>
+            <button class="theme-toggle" id="themeToggle" type="button"></button>
         </div>
     </nav>
 
-    <main class="container">
-        <section class="blog-header">
-            <h1>我的项目</h1>
-            <p class="subtitle">探索我的作品和资源</p>
-        </section>
-
-        <!-- 项目分类导航 -->
-        <div class="project-categories">
-            <button class="category-btn active" data-category="all">全部</button>
-            <button class="category-btn" data-category="pdf">PDF文档</button>
-            <button class="category-btn" data-category="image">图片文件</button>
-            <button class="category-btn" data-category="doc">文档文件</button>
-        </div>
-
-        <!-- PDF文档项目 -->
-        <section class="project-section" data-category="pdf">
-            <h2><i class="fas fa-file-pdf"></i> PDF文档</h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-icon">
-                        <i class="fas fa-file-pdf"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3>短时交通流量预测</h3>
-                        <p class="project-desc">关于城市交通流量预测的研究报告</p>
-                        <div class="project-meta">
-                            <span class="file-type">PDF</span>
-                            <span class="file-size">2.4MB</span>
-                        </div>
-                        <div class="project-actions">
-                            <a href="../projects/pdf/短时交通流量预测.pdf" class="view-btn" target="_blank">
-                                <i class="fas fa-eye"></i> 预览
-                            </a>
-                            <a href="../projects/pdf/短时交通流量预测.pdf" download class="download-btn">
-                                <i class="fas fa-download"></i> 下载
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-icon">
-                        <i class="fas fa-file-pdf"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3>多元线性回归</h3>
-                        <p class="project-desc">统计学多元线性回归分析报告</p>
-                        <div class="project-meta">
-                            <span class="file-type">PDF</span>
-                            <span class="file-size">1.8MB</span>
-                        </div>
-                        <div class="project-actions">
-                            <a href="../projects/pdf/多元线性回归.pdf" class="view-btn" target="_blank">
-                                <i class="fas fa-eye"></i> 预览
-                            </a>
-                            <a href="../projects/pdf/多元线性回归.pdf" download class="download-btn">
-                                <i class="fas fa-download"></i> 下载
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-icon">
-                        <i class="fas fa-file-pdf"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3>A题</h3>
-                        <p class="project-desc">数学建模A题报告</p>
-                        <div class="project-meta">
-                            <span class="file-type">PDF</span>
-                            <span class="file-size">2.1MB</span>
-                        </div>
-                        <div class="project-actions">
-                            <a href="../projects/pdf/A题.pdf" class="view-btn" target="_blank">
-                                <i class="fas fa-eye"></i> 预览
-                            </a>
-                            <a href="../projects/pdf/A题.pdf" download class="download-btn">
-                                <i class="fas fa-download"></i> 下载
-                            </a>
-                        </div>
-                    </div>
-                </div>
+    <main class="site-main">
+        <section class="site-shell blog-header page-transition">
+            <div>
+                <p class="eyebrow">Project Library</p>
+                <h1 class="page-title">项目资料库</h1>
+                <p class="page-lede">项目页是可检索的文件层：报告、截图和 Word 文档按资源类型整理，方便从文章回到原始材料。</p>
             </div>
         </section>
 
-        <!-- 图片文件 -->
-        <section class="project-section" data-category="image">
-            <h2><i class="fas fa-image"></i> 图片文件</h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-icon">
-                        <i class="fas fa-image"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3>作业管理系统</h3>
-                        <p class="project-desc">基于FastAPI + Vue.js + MySQL的全栈开发实践</p>
-                        <div class="project-meta">
-                            <span class="file-type">项目展示</span>
-                            <span class="file-size">完整系统</span>
-                        </div>
-                        <div class="project-actions">
-                            <a href="articles/homework_management_system.html" class="view-btn">
-                                <i class="fas fa-info-circle"></i> 查看详情
-                            </a>
-                            <a href="../projects/picture/作业管理系统.png" class="view-btn" target="_blank">
-                                <i class="fas fa-image"></i> 系统截图
-                            </a>
-                            <a href="../projects/word/Python程序设计报告.docx" class="download-btn" download>
-                                <i class="fas fa-download"></i> 相关文档
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-
+        <section class="site-shell">
+            <div class="project-categories" aria-label="项目分类">
+                <button class="category-btn active" type="button" data-category="all">全部</button>
+                <button class="category-btn" type="button" data-category="pdf">PDF</button>
+                <button class="category-btn" type="button" data-category="image">图片</button>
+                <button class="category-btn" type="button" data-category="doc">文档</button>
             </div>
-        </section>
-
-        <!-- 文档文件 -->
-        <section class="project-section" data-category="doc">
-            <h2><i class="fas fa-file-word"></i> 文档文件</h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-icon">
-                        <i class="fas fa-file-word"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3>Python程序设计报告</h3>
-                        <p class="project-desc">Python课程设计实验报告</p>
-                        <div class="project-meta">
-                            <span class="file-type">DOCX</span>
-                            <span class="file-size">3.5MB</span>
-                        </div>
-                        <div class="project-actions">
-                            <a href="../projects/word/Python程序设计报告.docx" class="view-btn" target="_blank">
-                                <i class="fas fa-eye"></i> 预览
-                            </a>
-                            <a href="../projects/word/Python程序设计报告.docx" download class="download-btn">
-                                <i class="fas fa-download"></i> 下载
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-icon">
-                        <i class="fas fa-file-word"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3>基于改进蚱蜢算法</h3>
-                        <p class="project-desc">多区域经济调度问题解决方案</p>
-                        <div class="project-meta">
-                            <span class="file-type">DOCX</span>
-                            <span class="file-size">2.8MB</span>
-                        </div>
-                        <div class="project-actions">
-                            <a href="../projects/word/基于改进蚱蜢算法解决多区域经济调度问题.docx" class="view-btn" target="_blank">
-                                <i class="fas fa-eye"></i> 预览
-                            </a>
-                            <a href="../projects/word/基于改进蚱蜢算法解决多区域经济调度问题.docx" download class="download-btn">
-                                <i class="fas fa-download"></i> 下载
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-icon">
-                        <i class="fas fa-file-word"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3>数据分析实验报告</h3>
-                        <p class="project-desc">数据分析实践课程报告</p>
-                        <div class="project-meta">
-                            <span class="file-type">DOCX</span>
-                            <span class="file-size">2.2MB</span>
-                        </div>
-                        <div class="project-actions">
-                            <a href="../projects/word/数据分析实验实践课报告.docx" class="view-btn" target="_blank">
-                                <i class="fas fa-eye"></i> 预览
-                            </a>
-                            <a href="../projects/word/数据分析实验实践课报告.docx" download class="download-btn">
-                                <i class="fas fa-download"></i> 下载
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-icon">
-                        <i class="fas fa-file-word"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3>数学模型报告</h3>
-                        <p class="project-desc">数学建模课程报告</p>
-                        <div class="project-meta">
-                            <span class="file-type">DOCX</span>
-                            <span class="file-size">2.5MB</span>
-                        </div>
-                        <div class="project-actions">
-                            <a href="../projects/word/数学模型报告.docx" class="view-btn" target="_blank">
-                                <i class="fas fa-eye"></i> 预览
-                            </a>
-                            <a href="../projects/word/数学模型报告.docx" download class="download-btn">
-                                <i class="fas fa-download"></i> 下载
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-icon">
-                        <i class="fas fa-file-word"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3>Python作业</h3>
-                        <p class="project-desc">Python编程基础作业</p>
-                        <div class="project-meta">
-                            <span class="file-type">DOC</span>
-                            <span class="file-size">1.5MB</span>
-                        </div>
-                        <div class="project-actions">
-                            <a href="../projects/word/python作业.doc" class="view-btn" target="_blank">
-                                <i class="fas fa-eye"></i> 预览
-                            </a>
-                            <a href="../projects/word/python作业.doc" download class="download-btn">
-                                <i class="fas fa-download"></i> 下载
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-icon">
-                        <i class="fas fa-file-word"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3>Web开发报告</h3>
-                        <p class="project-desc">Web应用开发实践报告</p>
-                        <div class="project-meta">
-                            <span class="file-type">DOC</span>
-                            <span class="file-size">1.8MB</span>
-                        </div>
-                        <div class="project-actions">
-                            <a href="../projects/word/web应用开发实践报告.doc" class="view-btn" target="_blank">
-                                <i class="fas fa-eye"></i> 预览
-                            </a>
-                            <a href="../projects/word/web应用开发实践报告.doc" download class="download-btn">
-                                <i class="fas fa-download"></i> 下载
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-icon">
-                        <i class="fas fa-file-word"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3>实践报告</h3>
-                        <p class="project-desc">综合实践课程报告</p>
-                        <div class="project-meta">
-                            <span class="file-type">DOC</span>
-                            <span class="file-size">1.2MB</span>
-                        </div>
-                        <div class="project-actions">
-                            <a href="../projects/word/实践报告.doc" class="view-btn" target="_blank">
-                                <i class="fas fa-eye"></i> 预览
-                            </a>
-                            <a href="../projects/word/实践报告.doc" download class="download-btn">
-                                <i class="fas fa-download"></i> 下载
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div class="projects-grid" data-render="projects"></div>
         </section>
     </main>
 
     <footer class="footer">
         <div class="container">
+            <p>&copy; 2026 歌月菌的知识工作台</p>
             <div class="social-links">
-                <a href="#">📱</a>
-                <a href="#">🐦</a>
-                <a href="#">📸</a>
-                <a href="#">💼</a>
+                <a href="index.html" aria-label="首页">H</a>
+                <a href="articles.html" aria-label="文章">A</a>
+                <a href="about.html" aria-label="关于">M</a>
             </div>
-            <p>&copy; 2025 歌月菌的博客. 保留所有权利.</p>
         </div>
     </footer>
 
-    <script src="scripts/script.js"></script>
+    <script src="scripts/site-data.js"></script>
     <script src="scripts/theme.js"></script>
+    <script src="scripts/script.js"></script>
     <script src="scripts/animations.js"></script>
-    <script>
-        // 项目分类筛选
-        document.querySelectorAll('.category-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                
-                const category = btn.dataset.category;
-                document.querySelectorAll('.project-section').forEach(section => {
-                    if(category === 'all' || section.dataset.category === category) {
-                        section.style.display = 'block';
-                    } else {
-                        section.style.display = 'none';
-                    }
-                });
-            });
-        });
-    </script>
 </body>
 </html>
