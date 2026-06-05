@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="静态网站设计札记：用轻量技术栈做出有质感的知识工作台。">
+    <title>静态网站设计札记：轻量也能有质感 | 歌月菌的知识工作台</title>
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="stylesheet" href="../styles/components.css">
+    <link rel="stylesheet" href="../styles/animations.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">歌月菌</a>
+            <ul class="nav-links" aria-label="主导航">
+                <li><a href="../index.html">首页</a></li>
+                <li><a href="../articles.html" class="active">文章</a></li>
+                <li><a href="../projects.html">项目</a></li>
+                <li><a href="../about.html">关于</a></li>
+            </ul>
+            <button class="theme-toggle" id="themeToggle" type="button"></button>
+        </div>
+    </nav>
+    <main class="article-container">
+        <article class="article-content essay-page">
+            <header class="essay-hero tone-lime">
+                <p class="eyebrow">Static Site</p>
+                <h1>静态网站设计札记：轻量也能有质感</h1>
+                <p>这个站点没有复杂构建链，但通过数据、设计令牌和原生交互，依然能形成完整体验。</p>
+                <div class="article-meta"><span>2026-06-05</span><span>8分钟阅读</span><span class="article-tag">前端设计</span></div>
+            </header>
+            <section class="essay-section">
+                <h2>一、技术栈越轻，结构越重要</h2>
+                <p>静态站最怕复制粘贴失控。把文章、项目、专题和图谱节点放进共享数据文件，可以让页面自动渲染，后续新增内容只改一处。</p>
+            </section>
+            <section class="essay-section">
+                <h2>二、视觉从设计令牌开始</h2>
+                <p>颜色、边框、阴影、圆角、间距都用变量统一管理。这样改风格时不用到处找 CSS，也能让暗色模式自然继承。</p>
+                <ol class="essay-list">
+                    <li>先定主色和强调色，避免页面被单一色调淹没。</li>
+                    <li>卡片只承担内容分组，不把每个区块都做成悬浮容器。</li>
+                    <li>动效服务理解，不抢正文注意力。</li>
+                </ol>
+            </section>
+            <section class="essay-section">
+                <h2>三、部署保持简单</h2>
+                <p>Netlify 直接发布静态目录，意味着维护成本很低。对个人博客而言，能持续更新比技术栈炫酷更重要。</p>
+                <a class="view-btn" href="../articles.html">返回文章索引</a>
+            </section>
+        </article>
+    </main>
+    <script src="../scripts/site-data.js"></script>
+    <script src="../scripts/theme.js"></script>
+    <script src="../scripts/script.js"></script>
+</body>
+</html>

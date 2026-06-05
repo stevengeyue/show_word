@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="歌月菌的研究笔记、工程项目与资料库。">
-    <title>歌月菌的知识工作台</title>
+    <meta name="description" content="歌月菌的数字花园：算法、数据、工程、AI 学习和个人知识库。">
+    <title>歌月菌的数字花园</title>
     <link rel="stylesheet" href="styles/styles.css">
     <link rel="stylesheet" href="styles/components.css">
     <link rel="stylesheet" href="styles/animations.css">
 </head>
-<body>
+<body class="site-spotlight">
     <nav class="navbar">
         <div class="nav-container">
             <a href="index.html" class="logo">歌月菌</a>
@@ -24,41 +24,29 @@
     </nav>
 
     <main class="site-main">
-        <section class="site-shell hero-grid">
-            <div class="hero-copy page-transition">
-                <p class="eyebrow">Research Desk / Knowledge Graph</p>
-                <h1 class="hero-title">把课程报告、算法实验和工程实践连成一张网。</h1>
-                <p class="hero-lede">这里是一个静态部署的个人知识工作台：文章负责沉淀思考，项目页负责整理文件资源，关于页呈现能力画像，首页用知识图谱把它们连接起来。</p>
+        <section class="site-shell hero-grid garden-hero">
+            <div class="hero-copy">
+                <p class="eyebrow">Digital Garden / Knowledge Atlas</p>
+                <h1 class="hero-title">把算法、数据、工程和学习路线种成一座数字花园。</h1>
+                <p class="hero-lede">这里不只是博客列表，而是一个持续生长的作品集：研究笔记解释问题，项目资料保留证据，专题地图连接方向，知识图谱展示路径。</p>
                 <div class="hero-actions">
-                    <a class="button primary" href="articles.html">浏览文章</a>
-                    <a class="button" href="projects.html">查看资料库</a>
+                    <a class="button primary" href="articles.html">进入文章地图</a>
+                    <a class="button" href="projects.html">打开资料库</a>
                 </div>
                 <div class="stats-grid">
-                    <div class="stat-card">
-                        <strong>4</strong>
-                        <span>研究笔记</span>
-                    </div>
-                    <div class="stat-card">
-                        <strong>8</strong>
-                        <span>项目资源</span>
-                    </div>
-                    <div class="stat-card">
-                        <strong>3</strong>
-                        <span>核心方向</span>
-                    </div>
-                    <div class="stat-card">
-                        <strong>0</strong>
-                        <span>构建依赖</span>
-                    </div>
+                    <div class="stat-card"><strong>10</strong><span>文章笔记</span></div>
+                    <div class="stat-card"><strong>4</strong><span>专题方向</span></div>
+                    <div class="stat-card"><strong>8</strong><span>项目资源</span></div>
+                    <div class="stat-card"><strong>1</strong><span>知识图谱</span></div>
                 </div>
             </div>
 
-            <div class="hero-panel reveal">
+            <div class="hero-panel">
                 <div class="graph-stage">
                     <canvas id="knowledgeGraph" aria-label="博客知识图谱"></canvas>
                     <div class="graph-caption">
                         <span>节点代表文章、技能和资源。</span>
-                        <span>连接代表学习路径。</span>
+                        <span>图谱会随主题轻微呼吸。</span>
                     </div>
                 </div>
             </div>
@@ -67,70 +55,64 @@
         <section class="site-shell">
             <div class="section-head">
                 <div>
-                    <p class="eyebrow">Primary Architecture</p>
+                    <p class="eyebrow">Featured Collections</p>
+                    <h2>专题地图</h2>
+                </div>
+                <p>内容按“算法建模、数据表达、工程产品、学习工具”四条线组织，方便从一个主题一路读下去。</p>
+            </div>
+            <div class="collection-grid" data-render="collections"></div>
+        </section>
+
+        <section class="site-shell art-band">
+            <div class="art-band-copy">
+                <p class="eyebrow">Study Flow</p>
+                <h2>学习航道</h2>
+                <p>从问题抽象，到方法构造，再到证据表达和作品沉淀。这个站点的所有内容都围绕这条路线积累。</p>
+            </div>
+            <div class="lane-grid" data-render="lanes"></div>
+        </section>
+
+        <section class="site-shell">
+            <div class="section-head">
+                <div>
+                    <p class="eyebrow">Page Architecture</p>
                     <h2>主要页面构架</h2>
                 </div>
-                <p>四个入口对应四类任务，保持 Netlify 静态部署的简洁性，同时用共享数据和样式统一维护。</p>
+                <p>四个入口各司其职，底层共享同一份数据和设计系统，保持 Netlify 静态部署的稳定性。</p>
             </div>
-            <div class="route-grid">
-                <a class="route-card reveal" href="index.html">
-                    <h3>首页</h3>
-                    <p>知识图谱、最新内容、站点方向总览。</p>
-                </a>
-                <a class="route-card reveal" href="articles.html">
-                    <h3>文章</h3>
-                    <p>算法、数据科学、工程实践和全栈开发笔记。</p>
-                </a>
-                <a class="route-card reveal" href="projects.html">
-                    <h3>项目</h3>
-                    <p>PDF、图片、Word 文档按类型筛选和下载。</p>
-                </a>
-                <a class="route-card reveal" href="about.html">
-                    <h3>关于</h3>
-                    <p>个人定位、技术栈和能力路线。</p>
-                </a>
-            </div>
+            <div class="route-grid" data-render="routes"></div>
         </section>
 
         <section class="site-shell">
             <div class="section-head">
                 <div>
                     <p class="eyebrow">Latest Notes</p>
-                    <h2>最新文章</h2>
+                    <h2>最新与新增文章</h2>
                 </div>
-                <a class="view-all" href="articles.html">查看全部</a>
+                <a class="view-all" href="articles.html">查看全部 10 篇</a>
             </div>
-            <div class="posts-grid" data-render="articles" data-limit="3"></div>
+            <div class="posts-grid" data-render="articles" data-limit="6"></div>
         </section>
 
-        <section class="site-shell">
-            <div class="section-head">
-                <div>
-                    <p class="eyebrow">Technical Stack</p>
-                    <h2>更新后的技术栈</h2>
-                </div>
-                <p>保留纯静态发布，升级为数据驱动的原生前端结构，避免引入构建复杂度。</p>
+        <section class="site-shell color-lab">
+            <div>
+                <p class="eyebrow">Design Language</p>
+                <h2>这次增加的艺术方向</h2>
+                <p>保留研究工作台的清晰结构，同时加入更丰富的数字花园感：彩色专题卡、鼠标光晕、呼吸图谱、纸面网格和更有层级的内容区。</p>
             </div>
-            <div class="capability-grid">
-                <article class="capability-card reveal">
-                    <h3>HTML5 语义结构</h3>
-                    <p>用清晰的导航、主内容、区块和卡片组织四个主页面。</p>
-                </article>
-                <article class="capability-card reveal">
-                    <h3>CSS 设计令牌</h3>
-                    <p>统一颜色、间距、阴影和暗色模式，风格固定为研究工作台。</p>
-                </article>
-                <article class="capability-card reveal">
-                    <h3>原生 JavaScript</h3>
-                    <p>用共享数据渲染文章和项目，提供筛选、显现和知识图谱。</p>
-                </article>
+            <div class="swatch-row" aria-label="设计色彩">
+                <span style="--swatch:#0f766e"></span>
+                <span style="--swatch:#4f46e5"></span>
+                <span style="--swatch:#d97706"></span>
+                <span style="--swatch:#e11d48"></span>
+                <span style="--swatch:#0891b2"></span>
             </div>
         </section>
     </main>
 
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2026 歌月菌的知识工作台</p>
+            <p>&copy; 2026 歌月菌的数字花园</p>
             <div class="social-links">
                 <a href="https://github.com/stevengeyue" aria-label="GitHub">G</a>
                 <a href="articles.html" aria-label="文章">A</a>

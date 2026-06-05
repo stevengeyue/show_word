@@ -79,6 +79,26 @@ body::before {
     background: linear-gradient(180deg, rgba(16, 21, 18, 0.8), rgba(16, 21, 18, 0.65));
 }
 
+.site-spotlight::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    background: radial-gradient(circle at var(--spotlight-x, 50%) var(--spotlight-y, 20%), rgba(79, 70, 229, 0.16), transparent 28rem);
+    transition: background 120ms ease;
+}
+
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--scroll-progress, 0%);
+    height: 3px;
+    z-index: 100;
+    background: linear-gradient(90deg, var(--primary), var(--accent), var(--warm));
+}
+
 img {
     max-width: 100%;
 }
@@ -203,6 +223,22 @@ input {
     gap: 28px;
     align-items: stretch;
     padding: 42px 0 32px;
+}
+
+.garden-hero {
+    position: relative;
+}
+
+.garden-hero::before {
+    content: "";
+    position: absolute;
+    inset: 18px auto auto -18px;
+    width: 160px;
+    height: 160px;
+    border: 1px solid color-mix(in srgb, var(--warm) 34%, transparent);
+    border-radius: 50%;
+    opacity: 0.55;
+    pointer-events: none;
 }
 
 .hero-copy {
@@ -404,7 +440,9 @@ input {
 .project-card,
 .capability-card,
 .route-card,
-.about-card {
+.about-card,
+.collection-card,
+.lane-card {
     position: relative;
     overflow: hidden;
     border: 1px solid var(--line);
@@ -418,16 +456,46 @@ input {
 .project-card:hover,
 .capability-card:hover,
 .route-card:hover,
-.about-card:hover {
+.about-card:hover,
+.collection-card:hover,
+.lane-card:hover {
     transform: translateY(-4px);
     border-color: color-mix(in srgb, var(--primary) 45%, var(--line));
     box-shadow: var(--shadow);
 }
 
+.post-card::before,
+.collection-card::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 4px;
+    background: var(--tone, var(--primary));
+}
+
+.tone-teal { --tone: #0f766e; }
+.tone-indigo { --tone: #4f46e5; }
+.tone-amber { --tone: #d97706; }
+.tone-violet { --tone: #7c3aed; }
+.tone-rose { --tone: #e11d48; }
+.tone-cyan { --tone: #0891b2; }
+.tone-lime { --tone: #65a30d; }
+.tone-orange { --tone: #ea580c; }
+.tone-blue { --tone: #2563eb; }
+.tone-purple { --tone: #9333ea; }
+
 .post-image {
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 16 / 7.5;
     overflow: hidden;
     background: var(--surface-soft);
+    position: relative;
+}
+
+.post-image::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 45%, color-mix(in srgb, var(--surface) 22%, transparent));
 }
 
 .post-image img {
@@ -496,6 +564,185 @@ input {
     margin-top: 14px;
     color: var(--muted);
     font-size: 0.86rem;
+}
+
+.article-brief {
+    display: grid;
+    gap: 9px;
+    margin: 14px 0 0;
+}
+
+.article-brief div {
+    padding: 10px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: color-mix(in srgb, var(--surface-soft) 70%, transparent);
+}
+
+.article-brief dt {
+    margin: 0 0 3px;
+    color: var(--tone, var(--primary));
+    font-size: 0.75rem;
+    font-weight: 900;
+}
+
+.article-brief dd {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.88rem;
+    line-height: 1.45;
+}
+
+.collection-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.collection-card {
+    min-height: 310px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    background:
+        linear-gradient(145deg, color-mix(in srgb, var(--tone, var(--primary)) 12%, transparent), transparent 55%),
+        var(--surface);
+}
+
+.collection-card .kicker {
+    margin: 0 0 12px;
+    color: var(--tone, var(--primary));
+    font-size: 0.78rem;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+.collection-card h3 {
+    margin: 0 0 10px;
+    font-size: 1.35rem;
+}
+
+.collection-card p {
+    margin: 0;
+    color: var(--muted);
+}
+
+.collection-links {
+    display: grid;
+    gap: 8px;
+    margin-top: auto;
+    padding-top: 18px;
+}
+
+.collection-links a {
+    padding: 8px 10px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    color: var(--text);
+    background: color-mix(in srgb, var(--surface) 78%, transparent);
+    font-size: 0.88rem;
+}
+
+.art-band {
+    margin-top: 42px;
+    padding: 28px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background:
+        linear-gradient(120deg, color-mix(in srgb, var(--primary) 14%, transparent), transparent),
+        linear-gradient(300deg, color-mix(in srgb, var(--warm) 14%, transparent), transparent),
+        var(--surface);
+    box-shadow: var(--shadow-soft);
+}
+
+.art-band-copy {
+    max-width: 720px;
+    margin-bottom: 20px;
+}
+
+.art-band-copy h2,
+.color-lab h2 {
+    margin: 0;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    line-height: 1.05;
+}
+
+.art-band-copy p,
+.color-lab p {
+    color: var(--muted);
+}
+
+.lane-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.lane-card {
+    padding: 18px;
+    background: color-mix(in srgb, var(--surface) 88%, transparent);
+}
+
+.lane-card span {
+    display: inline-grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--text);
+    color: var(--bg);
+    font-weight: 900;
+}
+
+.lane-card h3 {
+    margin: 16px 0 8px;
+}
+
+.lane-card p {
+    color: var(--muted);
+}
+
+.lane-card ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 14px 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.lane-card li {
+    padding: 5px 8px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--muted);
+    font-size: 0.78rem;
+}
+
+.color-lab {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 24px;
+    align-items: center;
+    margin-top: 42px;
+    padding: 28px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
+    box-shadow: var(--shadow-soft);
+}
+
+.swatch-row {
+    display: flex;
+    gap: 12px;
+}
+
+.swatch-row span {
+    width: 52px;
+    height: 80px;
+    border-radius: var(--radius);
+    background: var(--swatch);
+    box-shadow: var(--shadow-soft);
 }
 
 .tech-tags,
@@ -650,6 +897,71 @@ input {
     box-shadow: var(--shadow-soft);
 }
 
+.essay-page {
+    overflow: hidden;
+}
+
+.essay-hero {
+    position: relative;
+    padding: clamp(28px, 6vw, 58px);
+    background:
+        linear-gradient(135deg, color-mix(in srgb, var(--tone, var(--primary)) 16%, transparent), transparent 62%),
+        var(--surface);
+}
+
+.essay-hero::after {
+    content: "";
+    position: absolute;
+    right: 32px;
+    top: 32px;
+    width: 110px;
+    height: 110px;
+    border: 1px solid color-mix(in srgb, var(--tone, var(--primary)) 42%, transparent);
+    border-radius: 50%;
+    opacity: 0.7;
+}
+
+.essay-hero h1 {
+    max-width: 800px;
+    margin: 0;
+    font-size: clamp(2.1rem, 6vw, 4.6rem);
+    line-height: 1.02;
+}
+
+.essay-hero p:not(.eyebrow) {
+    max-width: 720px;
+    color: var(--muted);
+    font-size: 1.06rem;
+}
+
+.essay-section {
+    padding: clamp(24px, 5vw, 44px);
+    border-top: 1px solid var(--line);
+}
+
+.essay-section h2 {
+    margin-top: 0;
+    color: var(--primary-strong);
+    font-size: clamp(1.35rem, 3vw, 2rem);
+}
+
+.essay-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 16px;
+}
+
+.essay-list {
+    display: grid;
+    gap: 12px;
+    padding-left: 1.2rem;
+}
+
+.essay-list li {
+    padding-left: 6px;
+}
+
 .article-meta {
     display: flex;
     flex-wrap: wrap;
@@ -734,7 +1046,10 @@ th {
     .projects-grid,
     .capability-grid,
     .route-grid,
-    .stats-grid {
+    .stats-grid,
+    .collection-grid,
+    .lane-grid,
+    .essay-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
@@ -783,8 +1098,29 @@ th {
         grid-template-columns: 1fr;
     }
 
-    .stats-grid {
+    .stats-grid,
+    .collection-grid,
+    .lane-grid,
+    .essay-grid,
+    .color-lab {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .collection-grid,
+    .lane-grid,
+    .essay-grid,
+    .color-lab {
+        grid-template-columns: 1fr;
+    }
+
+    .art-band,
+    .color-lab {
+        padding: 20px;
+    }
+
+    .swatch-row span {
+        width: 40px;
+        height: 58px;
     }
 
     .section-head,

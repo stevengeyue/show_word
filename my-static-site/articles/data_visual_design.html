@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="数据可视化审美：颜色、层级、标注和图表叙事。">
+    <title>数据可视化审美：让图表先说重点 | 歌月菌的知识工作台</title>
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="stylesheet" href="../styles/components.css">
+    <link rel="stylesheet" href="../styles/animations.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">歌月菌</a>
+            <ul class="nav-links" aria-label="主导航">
+                <li><a href="../index.html">首页</a></li>
+                <li><a href="../articles.html" class="active">文章</a></li>
+                <li><a href="../projects.html">项目</a></li>
+                <li><a href="../about.html">关于</a></li>
+            </ul>
+            <button class="theme-toggle" id="themeToggle" type="button"></button>
+        </div>
+    </nav>
+    <main class="article-container">
+        <article class="article-content essay-page">
+            <header class="essay-hero tone-cyan">
+                <p class="eyebrow">Data Visualization</p>
+                <h1>数据可视化审美：让图表先说重点</h1>
+                <p>好图表不是装饰，而是让读者更快看见重点、比较差异、理解变化。</p>
+                <div class="article-meta"><span>2026-06-05</span><span>9分钟阅读</span><span class="article-tag">可视化</span></div>
+            </header>
+            <section class="essay-section">
+                <h2>一、先决定读者要看到什么</h2>
+                <p>做图之前先写一句话：这张图希望读者看见什么？如果答案是“展示所有数据”，通常还不够。图表要服务一个判断，比如峰值出现在哪里、哪组变化最快、误差是否可接受。</p>
+            </section>
+            <section class="essay-section">
+                <h2>二、颜色要有分工</h2>
+                <div class="essay-grid">
+                    <div class="info-card"><h3>主色</h3><p>用于最重要的数据系列或当前结论。</p></div>
+                    <div class="info-card"><h3>中性色</h3><p>用于背景、坐标轴和辅助数据，降低视觉噪声。</p></div>
+                    <div class="info-card"><h3>警示色</h3><p>只在异常值、阈值、风险点出现，避免滥用。</p></div>
+                </div>
+            </section>
+            <section class="essay-section">
+                <h2>三、标注比图例更接近答案</h2>
+                <p>很多时候，读者不想在图例和折线之间来回找。直接在关键点旁边标注“高峰”“异常下降”“模型误差变大”，能减少理解成本。图表叙事不是把图做满，而是把注意力安排好。</p>
+                <a class="view-btn" href="../articles.html">返回文章索引</a>
+            </section>
+        </article>
+    </main>
+    <script src="../scripts/site-data.js"></script>
+    <script src="../scripts/theme.js"></script>
+    <script src="../scripts/script.js"></script>
+</body>
+</html>

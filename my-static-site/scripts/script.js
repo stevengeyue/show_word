@@ -20,7 +20,7 @@
 
     function createArticleCard(article) {
         return `
-            <article class="post-card reveal">
+            <article class="post-card reveal tone-${article.color || "teal"}">
                 <a class="post-image" href="${resolveHref(article.href)}">
                     <img src="${resolveHref(article.image)}" alt="${article.title}">
                 </a>
@@ -28,6 +28,16 @@
                     <span class="post-tag">${article.tag}</span>
                     <h2><a href="${resolveHref(article.href)}">${article.title}</a></h2>
                     <p class="excerpt">${article.summary}</p>
+                    <dl class="article-brief">
+                        <div>
+                            <dt>问题</dt>
+                            <dd>${article.question || "从一个具体问题开始，整理方法和结论。"}</dd>
+                        </div>
+                        <div>
+                            <dt>方法</dt>
+                            <dd>${article.method || "结构化拆解、证据整理、复盘表达"}</dd>
+                        </div>
+                    </dl>
                     <div class="post-meta">
                         <span>${article.date}</span>
                         <span>${article.readTime}</span>
@@ -40,7 +50,53 @@
     function renderArticles() {
         document.querySelectorAll("[data-render='articles']").forEach((target) => {
             const limit = Number(target.dataset.limit || data.articles.length);
-            target.innerHTML = data.articles.slice(0, limit).map(createArticleCard).join("");
+            const filter = target.dataset.filter;
+            const articles = filter ? data.articles.filter((article) => article.tag === filter) : data.articles;
+            target.innerHTML = articles.slice(0, limit).map(createArticleCard).join("");
+        });
+    }
+
+    function renderCollections() {
+        document.querySelectorAll("[data-render='collections']").forEach((target) => {
+            target.innerHTML = (data.collections || []).map((collection) => `
+                <article class="collection-card reveal tone-${collection.palette}">
+                    <p class="kicker">${collection.kicker}</p>
+                    <h3>${collection.title}</h3>
+                    <p>${collection.summary}</p>
+                    <div class="collection-links">
+                        ${collection.articles.map((title) => {
+                            const article = data.articles.find((item) => item.title === title);
+                            return article ? `<a href="${resolveHref(article.href)}">${article.title}</a>` : "";
+                        }).join("")}
+                    </div>
+                </article>
+            `).join("");
+        });
+    }
+
+    function renderRoutes() {
+        document.querySelectorAll("[data-render='routes']").forEach((target) => {
+            target.innerHTML = (data.routes || []).map((route) => `
+                <a class="route-card reveal" href="${resolveHref(route.href)}">
+                    <h3>${route.title}</h3>
+                    <p>${route.summary}</p>
+                </a>
+            `).join("");
+        });
+    }
+
+    function renderLanes() {
+        document.querySelectorAll("[data-render='lanes']").forEach((target) => {
+            target.innerHTML = (data.lanes || []).map((lane) => `
+                <article class="lane-card reveal">
+                    <span>${lane.marker}</span>
+                    <h3>${lane.title}</h3>
+                    <p>${lane.summary}</p>
+                    <ul>
+                        ${lane.items.map((item) => `<li>${item}</li>`).join("")}
+                    </ul>
+                </article>
+            `).join("");
         });
     }
 
@@ -107,6 +163,36 @@
         revealItems.forEach((item) => observer.observe(item));
     }
 
+    function setupSpotlight() {
+        const spotlight = document.querySelector(".site-spotlight");
+        if (!spotlight) {
+            return;
+        }
+
+        window.addEventListener("pointermove", (event) => {
+            spotlight.style.setProperty("--spotlight-x", `${event.clientX}px`);
+            spotlight.style.setProperty("--spotlight-y", `${event.clientY}px`);
+        });
+    }
+
+    function setupScrollProgress() {
+        if (!document.querySelector(".scroll-progress")) {
+            const progress = document.createElement("div");
+            progress.className = "scroll-progress";
+            document.body.appendChild(progress);
+        }
+
+        function updateProgress() {
+            const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
+            document.documentElement.style.setProperty("--scroll-progress", `${Math.min(100, Math.max(0, progress))}%`);
+        }
+
+        updateProgress();
+        window.addEventListener("scroll", updateProgress, { passive: true });
+        window.addEventListener("resize", updateProgress);
+    }
+
     function drawGraph() {
         const canvas = document.getElementById("knowledgeGraph");
         if (!canvas || !data.graph) {
@@ -146,7 +232,8 @@
 
         const nodeById = new Map(nodes.map((node) => [node.id, node]));
 
-        ctx.lineWidth = 1.4;
+        const pulse = 1 + Math.sin(Date.now() / 1200) * 0.08;
+        ctx.lineWidth = 1.4 * pulse;
         data.graph.links.forEach(([sourceId, targetId]) => {
             const source = nodeById.get(sourceId);
             const target = nodeById.get(targetId);
@@ -167,7 +254,7 @@
 
         ctx.globalAlpha = 1;
         nodes.forEach((node) => {
-            const radius = node.group === "core" ? 34 : 24;
+            const radius = (node.group === "core" ? 34 : 24) * pulse;
             const fill = node.group === "skill" ? colors.accent : node.group === "resource" ? colors.warm : colors.primary;
 
             ctx.beginPath();
@@ -194,16 +281,43 @@
     }
 
     function setupGraph() {
-        drawGraph();
+        if (!document.getElementById("knowledgeGraph")) {
+            return;
+        }
+
+        let frameId = 0;
+        let running = false;
+        function loop() {
+            running = true;
+            drawGraph();
+            frameId = window.requestAnimationFrame(loop);
+        }
+
+        loop();
         window.addEventListener("resize", drawGraph);
         window.addEventListener("themechange", drawGraph);
+        document.addEventListener("visibilitychange", () => {
+            if (document.hidden) {
+                window.cancelAnimationFrame(frameId);
+                running = false;
+            } else {
+                if (!running) {
+                    loop();
+                }
+            }
+        });
     }
 
     function init() {
         renderArticles();
+        renderCollections();
+        renderRoutes();
+        renderLanes();
         renderProjects();
         setupProjectFilters();
         setupReveal();
+        setupSpotlight();
+        setupScrollProgress();
         setupGraph();
     }
 
