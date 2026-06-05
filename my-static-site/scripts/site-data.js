@@ -119,6 +119,78 @@ window.siteData = {
             question: "怎样让课程资料不只是文件夹，而是能展示能力的知识库？",
             method: "分类系统、链接策略、作品集维护",
             color: "purple"
+        },
+        {
+            title: "辩题深读：学校教育应优先使用世界通用语言吗",
+            tag: "辩论深读",
+            date: "2023-12-08",
+            readTime: "13分钟",
+            href: "articles/debate_world_language_education.html",
+            image: "../projects/picture/touxiang.jpg",
+            summary: "从教育公平、文化保存、国家发展和学生流动性拆解语言教育辩题。",
+            question: "当本地语言和世界通用语言冲突时，教育系统应该优先保护谁的利益？",
+            method: "价值冲突、利益权衡、政策影响",
+            color: "blue"
+        },
+        {
+            title: "辩题深读：是否应禁止一次性塑料制品",
+            tag: "辩论深读",
+            date: "2024-04-18",
+            readTime: "12分钟",
+            href: "articles/debate_single_use_plastics.html",
+            image: "../projects/picture/短时交通流量预测信息图.png",
+            summary: "围绕环境治理、产业成本、替代材料和消费者行为拆解塑料禁令。",
+            question: "禁令是在解决污染，还是把成本转移给小商家和低收入消费者？",
+            method: "环境收益、成本分配、替代方案比较",
+            color: "lime"
+        },
+        {
+            title: "辩题深读：加强边境监控是否值得",
+            tag: "辩论深读",
+            date: "2024-09-12",
+            readTime: "14分钟",
+            href: "articles/debate_border_surveillance.html",
+            image: "../projects/picture/实习信息图.png",
+            summary: "以安全、隐私、误伤风险和技术治理为轴分析高强度边境监控。",
+            question: "国家安全能否正当化更大规模的数据收集和自动化识别？",
+            method: "安全收益、隐私代价、技术误差",
+            color: "orange"
+        },
+        {
+            title: "辩题深读：应不应该限制未成年人使用社交媒体",
+            tag: "辩论深读",
+            date: "2025-02-20",
+            readTime: "13分钟",
+            href: "articles/debate_social_media_minors.html",
+            image: "../projects/picture/作业管理系统.png",
+            summary: "从心理健康、表达自由、平台责任和家庭教育看未成年人社交媒体限制。",
+            question: "保护未成年人时，国家、平台和家庭各自应该承担多少责任？",
+            method: "权利边界、风险治理、责任分配",
+            color: "rose"
+        },
+        {
+            title: "辩题深读：AI 说服系统应被严格限制吗",
+            tag: "辩论深读",
+            date: "2025-08-26",
+            readTime: "15分钟",
+            href: "articles/debate_ai_persuasion.html",
+            image: "../projects/picture/touxiang.jpg",
+            summary: "讨论 AI 辩论、个性化劝服、政治传播和信息操纵之间的界线。",
+            question: "当 AI 能规模化生成有针对性的论证，公共讨论会变得更理性还是更脆弱？",
+            method: "技术能力、民主风险、监管边界",
+            color: "purple"
+        },
+        {
+            title: "辩题深读：气候适应资金应优先流向最脆弱地区吗",
+            tag: "辩论深读",
+            date: "2026-03-14",
+            readTime: "14分钟",
+            href: "articles/debate_climate_adaptation.html",
+            image: "../projects/picture/蚂蚱算法信息图.png",
+            summary: "把气候适应资金放在效率、公平、责任和可执行性之间权衡。",
+            question: "有限气候资金应优先给最危险地区，还是投向最能产生减灾效果的地区？",
+            method: "分配正义、风险评估、政策执行",
+            color: "teal"
         }
     ],
     collections: [
@@ -149,6 +221,13 @@ window.siteData = {
             summary: "整理 AI 学习路线、静态站设计和个人知识库，让作品集持续生长。",
             articles: ["AI 学习路线：从会用到会拆解", "静态网站设计札记：轻量也能有质感", "个人知识库工具箱：资料、笔记和作品集"],
             palette: "rose"
+        },
+        {
+            title: "辩论主题深读",
+            kicker: "Debate / Public Issues",
+            summary: "从比赛辩题进入公共议题，训练定义、比较和权衡能力。",
+            articles: ["辩题深读：学校教育应优先使用世界通用语言吗", "辩题深读：应不应该限制未成年人使用社交媒体", "辩题深读：AI 说服系统应被严格限制吗"],
+            palette: "purple"
         }
     ],
     routes: [
@@ -254,7 +333,9 @@ window.siteData = {
             { id: "python", label: "Python", group: "skill", x: 0.1, y: 0.48 },
             { id: "vue", label: "Vue", group: "skill", x: 0.92, y: 0.42 },
             { id: "data", label: "数据建模", group: "skill", x: 0.5, y: 0.32 },
-            { id: "resource", label: "资料库", group: "resource", x: 0.5, y: 0.93 }
+            { id: "resource", label: "资料库", group: "resource", x: 0.5, y: 0.93 },
+            { id: "debate", label: "辩论", group: "article", x: 0.18, y: 0.86 },
+            { id: "policy", label: "公共议题", group: "skill", x: 0.84, y: 0.82 }
         ],
         links: [
             ["blog", "optimization"],
@@ -275,6 +356,10 @@ window.siteData = {
             ["ai", "writing"],
             ["ai", "resource"],
             ["visual", "resource"],
+            ["debate", "writing"],
+            ["debate", "policy"],
+            ["policy", "ai"],
+            ["policy", "resource"],
             ["resource", "optimization"],
             ["resource", "traffic"],
             ["resource", "fullstack"]
