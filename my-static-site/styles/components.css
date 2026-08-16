@@ -31,11 +31,13 @@
     width: 100%;
 }
 
+/* 旧文章 hero：雾面 + 有机圆角，图片覆盖时保留清晰主体 */
 .article-hero {
-    border-radius: var(--radius);
+    border-radius: var(--radius-panel);
     overflow: hidden;
     border: 1px solid var(--line);
     box-shadow: var(--shadow);
+    backdrop-filter: blur(14px);
 }
 
 .article-hero .hero-title {
@@ -62,4 +64,9 @@
 .theme-switch input,
 .theme-switch span {
     display: none;
+}
+
+/* 旧文章页的正文容器也进入雾面系统 */
+.article-body {
+    padding: clamp(20px, 4vw, 40px);
 }

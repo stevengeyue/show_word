@@ -1,45 +1,61 @@
+/* ============================================================
+   Organic Form Design System
+   柔和、不规则、自然流动的形状作为主要视觉语言。
+   多值圆角 / 曲线 clip-path / 平滑粉紫青渐变 / 雾面材质。
+   文字区域保持规整矩形以保证可读。
+   ============================================================ */
+
 :root {
     color-scheme: light;
-    --bg: #f6f8f5;
-    --surface: #ffffff;
-    --surface-soft: #eef4ee;
-    --surface-strong: #dce9e1;
-    --text: #17211c;
-    --muted: #637169;
-    --line: rgba(23, 33, 28, 0.12);
-    --primary: #0f766e;
-    --primary-strong: #0b5d56;
-    --accent: #4f46e5;
-    --warm: #d97706;
-    --danger: #c2410c;
-    --shadow: 0 18px 50px rgba(15, 35, 28, 0.1);
-    --shadow-soft: 0 10px 30px rgba(15, 35, 28, 0.08);
-    --radius: 8px;
+    /* 柔和粉 / 紫 / 青基底（粉为低饱和点缀，紫青主导） */
+    --bg: #f8f6fc;
+    --surface: rgba(255, 255, 255, 0.72);
+    --surface-soft: #f3eefb;
+    --surface-strong: #e8def8;
+    --text: #2e2537;
+    --muted: #7b7089;
+    --line: rgba(112, 84, 148, 0.13);
+    --primary: #d69cc2;        /* 低饱和柔粉 */
+    --primary-strong: #b0749f;
+    --accent: #8d7bf7;         /* 紫 */
+    --warm: #57c2d8;           /* 青 */
+    --danger: #c96f94;
+    --shadow: 0 24px 60px rgba(88, 58, 122, 0.15);
+    --shadow-soft: 0 12px 34px rgba(88, 58, 122, 0.11);
+    --shadow-blob: 0 18px 50px rgba(120, 78, 172, 0.2);
+
+    /* 有机多值圆角：避免严格对称 */
+    --radius-card: 26px 14px 30px 18px / 24px 30px 20px 34px;
+    --radius-panel: 44px 18px 48px 22px / 36px 52px 28px 46px;
+    --radius-input: 16px 22px 14px 24px;
+    --radius-article: 22px 22px 22px 22px;
+
     --max-width: 1180px;
     --font-sans: Inter, "Segoe UI", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
     --font-serif: Georgia, "Times New Roman", "Songti SC", serif;
-    --transition: 180ms ease;
-    --grid-line: rgba(15, 118, 110, 0.12);
+    --transition: 320ms cubic-bezier(0.22, 0.61, 0.36, 1);
+    --grid-line: rgba(176, 130, 214, 0.1);
 }
 
 body.dark-mode,
 .dark-mode {
     color-scheme: dark;
-    --bg: #101512;
-    --surface: #18211d;
-    --surface-soft: #1f2b26;
-    --surface-strong: #283a33;
-    --text: #eef6ef;
-    --muted: #a4b3aa;
-    --line: rgba(238, 246, 239, 0.14);
-    --primary: #2dd4bf;
-    --primary-strong: #5eead4;
-    --accent: #a5b4fc;
-    --warm: #fbbf24;
-    --danger: #fb923c;
-    --shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
-    --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.26);
-    --grid-line: rgba(45, 212, 191, 0.12);
+    --bg: #171322;
+    --surface: rgba(40, 32, 52, 0.74);
+    --surface-soft: #241d31;
+    --surface-strong: #322944;
+    --text: #f2edf9;
+    --muted: #a89cba;
+    --line: rgba(222, 198, 246, 0.15);
+    --primary: #e6b3d2;
+    --primary-strong: #f5cde6;
+    --accent: #b3a5ff;
+    --warm: #83d8ea;
+    --danger: #e08ab4;
+    --shadow: 0 24px 60px rgba(0, 0, 0, 0.42);
+    --shadow-soft: 0 12px 34px rgba(0, 0, 0, 0.34);
+    --shadow-blob: 0 18px 50px rgba(0, 0, 0, 0.5);
+    --grid-line: rgba(218, 186, 252, 0.1);
 }
 
 * {
@@ -57,26 +73,25 @@ body {
     line-height: 1.65;
     color: var(--text);
     background:
-        linear-gradient(var(--grid-line) 1px, transparent 1px),
-        linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
-        radial-gradient(circle at 8% 8%, rgba(15, 118, 110, 0.08), transparent 30%),
-        radial-gradient(circle at 90% 15%, rgba(79, 70, 229, 0.08), transparent 28%),
+        radial-gradient(50% 40% at 12% 8%, rgba(214, 156, 194, 0.1), transparent 62%),
+        radial-gradient(54% 46% at 88% 12%, rgba(141, 123, 247, 0.15), transparent 60%),
+        radial-gradient(48% 42% at 78% 88%, rgba(87, 194, 216, 0.13), transparent 58%),
+        radial-gradient(36% 32% at 8% 80%, rgba(141, 123, 247, 0.08), transparent 55%),
         var(--bg);
-    background-size: 32px 32px, 32px 32px, auto, auto, auto;
+    background-attachment: fixed;
     transition: background-color var(--transition), color var(--transition);
 }
 
+/* 低噪点雾面叠层：SVG turbulence 细噪点 */
 body::before {
     content: "";
     position: fixed;
     inset: 0;
     pointer-events: none;
-    background: linear-gradient(180deg, rgba(246, 248, 245, 0.88), rgba(246, 248, 245, 0.62));
-    z-index: -1;
-}
-
-.dark-mode::before {
-    background: linear-gradient(180deg, rgba(16, 21, 18, 0.8), rgba(16, 21, 18, 0.65));
+    z-index: 0;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode: overlay;
 }
 
 .site-spotlight::after {
@@ -84,9 +99,9 @@ body::before {
     position: fixed;
     inset: 0;
     pointer-events: none;
-    z-index: -1;
-    background: radial-gradient(circle at var(--spotlight-x, 50%) var(--spotlight-y, 20%), rgba(79, 70, 229, 0.16), transparent 28rem);
-    transition: background 120ms ease;
+    z-index: 0;
+    background: radial-gradient(circle at var(--spotlight-x, 50%) var(--spotlight-y, 20%), rgba(141, 123, 247, 0.13), transparent 30rem);
+    transition: background 160ms ease;
 }
 
 .scroll-progress {
@@ -97,6 +112,7 @@ body::before {
     height: 3px;
     z-index: 100;
     background: linear-gradient(90deg, var(--primary), var(--accent), var(--warm));
+    border-radius: 999px;
 }
 
 img {
@@ -113,23 +129,87 @@ input {
     font: inherit;
 }
 
+/* ============ 背景有机 blob 装饰层 ============ */
+.blob-field {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.blob-field span {
+    position: absolute;
+    filter: blur(46px);
+    opacity: 0.5;
+    will-change: transform, border-radius;
+}
+
+.blob-field .blob-pink {
+    width: 40vmin;
+    height: 40vmin;
+    left: -8vmin;
+    top: 4vmin;
+    background: radial-gradient(circle at 38% 42%, rgba(255, 190, 222, 0.85), rgba(214, 156, 194, 0.18));
+    border-radius: 42% 58% 55% 45% / 50% 45% 55% 50%;
+    animation: blobMorphA 9s ease-in-out infinite alternate;
+    opacity: 0.34;
+}
+
+.blob-field .blob-purple {
+    width: 54vmin;
+    height: 54vmin;
+    right: -10vmin;
+    top: 16vmin;
+    background: radial-gradient(circle at 55% 45%, rgba(195, 180, 255, 0.9), rgba(141, 123, 247, 0.24));
+    border-radius: 55% 45% 48% 52% / 45% 56% 44% 55%;
+    animation: blobMorphB 11s ease-in-out infinite alternate;
+    opacity: 0.5;
+}
+
+.blob-field .blob-cyan {
+    width: 42vmin;
+    height: 42vmin;
+    right: 12vmin;
+    bottom: -10vmin;
+    background: radial-gradient(circle at 50% 55%, rgba(172, 236, 248, 0.9), rgba(87, 194, 216, 0.22));
+    border-radius: 48% 52% 58% 42% / 55% 42% 58% 45%;
+    animation: blobMorphC 10s ease-in-out infinite alternate;
+    opacity: 0.42;
+}
+
+.blob-field .blob-pink-sm {
+    width: 22vmin;
+    height: 22vmin;
+    left: 22vmin;
+    bottom: 6vmin;
+    background: radial-gradient(circle at 40% 60%, rgba(255, 200, 230, 0.8), rgba(214, 156, 194, 0.14));
+    border-radius: 60% 40% 52% 48% / 48% 62% 38% 52%;
+    animation: blobMorphB 12s ease-in-out infinite alternate-reverse;
+    opacity: 0.3;
+}
+
+/* ============ 布局 ============ */
 .container,
 .site-shell {
     width: min(100% - 40px, var(--max-width));
     margin-inline: auto;
+    position: relative;
+    z-index: 1;
 }
 
 .site-main {
     padding: 34px 0 72px;
 }
 
+/* ============ 导航：雾面 + 柔和圆角 ============ */
 .navbar {
     position: sticky;
     top: 0;
     z-index: 50;
     border-bottom: 1px solid var(--line);
-    background: color-mix(in srgb, var(--bg) 88%, transparent);
-    backdrop-filter: blur(18px);
+    background: color-mix(in srgb, var(--bg) 76%, transparent);
+    backdrop-filter: blur(22px) saturate(1.2);
 }
 
 .nav-container {
@@ -150,11 +230,12 @@ input {
     letter-spacing: 0;
 }
 
+/* 有机 logo 点：三个不规则圆 */
 .logo::before {
     content: "";
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
+    width: 13px;
+    height: 13px;
+    border-radius: 58% 42% 55% 45% / 48% 60% 40% 52%;
     background: var(--primary);
     box-shadow: 18px 0 0 var(--accent), 9px 14px 0 var(--warm);
 }
@@ -167,9 +248,10 @@ input {
     padding: 4px;
     list-style: none;
     border: 1px solid var(--line);
-    border-radius: 999px;
+    border-radius: var(--radius-input);
     background: var(--surface);
     box-shadow: var(--shadow-soft);
+    backdrop-filter: blur(14px);
 }
 
 .nav-links a {
@@ -177,17 +259,26 @@ input {
     align-items: center;
     min-height: 36px;
     padding: 0 14px;
-    border-radius: 999px;
+    border-radius: 14px 20px 12px 22px;
     color: var(--muted);
     font-size: 0.92rem;
     font-weight: 650;
-    transition: background var(--transition), color var(--transition);
+    transition: background var(--transition), color var(--transition), transform var(--transition);
 }
 
 .nav-links a:hover,
 .nav-links a.active {
     color: var(--text);
-    background: var(--surface-soft);
+    background: linear-gradient(120deg, color-mix(in srgb, var(--primary) 16%, transparent), color-mix(in srgb, var(--accent) 14%, transparent));
+}
+
+.nav-links a:hover {
+    transform: scale(1.04) rotate(-0.6deg);
+}
+
+.nav-links a:active {
+    transform: scale(0.98) rotate(0deg);
+    transition-duration: 120ms;
 }
 
 .theme-toggle,
@@ -196,13 +287,22 @@ input {
     height: 42px;
     padding: 0;
     border: 1px solid var(--line);
-    border-radius: 50%;
+    border-radius: 46% 54% 50% 50% / 52% 46% 54% 48%;
     display: inline-grid;
     place-items: center;
     background: var(--surface);
     color: var(--text);
     box-shadow: var(--shadow-soft);
     cursor: pointer;
+    transition: transform var(--transition), background var(--transition);
+}
+
+.theme-toggle:hover {
+    transform: scale(1.08) rotate(8deg);
+}
+
+.theme-toggle:active {
+    transform: scale(0.96) rotate(0deg);
 }
 
 .theme-toggle::before,
@@ -217,6 +317,7 @@ input {
     display: none;
 }
 
+/* ============ Hero ============ */
 .hero-grid {
     display: grid;
     grid-template-columns: minmax(0, 1.05fr) minmax(340px, 0.95fr);
@@ -229,16 +330,18 @@ input {
     position: relative;
 }
 
+/* 手绘感环圈装饰 */
 .garden-hero::before {
     content: "";
     position: absolute;
     inset: 18px auto auto -18px;
-    width: 160px;
-    height: 160px;
-    border: 1px solid color-mix(in srgb, var(--warm) 34%, transparent);
-    border-radius: 50%;
-    opacity: 0.55;
+    width: 170px;
+    height: 170px;
+    border: 1.5px dashed color-mix(in srgb, var(--warm) 45%, transparent);
+    border-radius: 46% 54% 50% 50% / 52% 44% 56% 48%;
+    opacity: 0.6;
     pointer-events: none;
+    animation: slowSpin 26s linear infinite;
 }
 
 .hero-copy {
@@ -260,7 +363,8 @@ input {
     content: "";
     width: 30px;
     height: 2px;
-    background: var(--primary);
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
 }
 
 .hero-title,
@@ -292,6 +396,7 @@ input {
     margin-top: 28px;
 }
 
+/* ============ 按钮：柔和有机胶囊 ============ */
 .button,
 .cta-button,
 .view-all,
@@ -304,22 +409,23 @@ input {
     justify-content: center;
     gap: 8px;
     min-height: 42px;
-    padding: 10px 16px;
+    padding: 10px 18px;
     border: 1px solid var(--line);
-    border-radius: var(--radius);
+    border-radius: 20px 30px 18px 32px;
     background: var(--surface);
     color: var(--text);
     font-weight: 750;
     line-height: 1;
     box-shadow: var(--shadow-soft);
-    transition: transform var(--transition), border-color var(--transition), background var(--transition);
+    backdrop-filter: blur(12px);
+    transition: transform var(--transition), border-color var(--transition), background var(--transition), box-shadow var(--transition);
 }
 
 .button.primary,
 .cta-button,
 .view-btn {
     border-color: transparent;
-    background: var(--primary);
+    background: linear-gradient(120deg, var(--primary), var(--accent));
     color: #ffffff;
 }
 
@@ -330,16 +436,30 @@ input {
 .download-btn:hover,
 .contact-link:hover,
 .project-link:hover {
-    transform: translateY(-2px);
-    border-color: color-mix(in srgb, var(--primary) 42%, var(--line));
+    transform: scale(1.045) rotate(-1deg);
+    border-color: color-mix(in srgb, var(--primary) 55%, var(--line));
+    box-shadow: var(--shadow);
 }
 
+.button:active,
+.cta-button:active,
+.view-all:active,
+.view-btn:active,
+.download-btn:active,
+.contact-link:active,
+.project-link:active {
+    transform: scale(0.96) rotate(0.4deg);
+    transition-duration: 140ms;
+}
+
+/* ============ 面板：有机 blob 轮廓 ============ */
 .hero-panel,
 .panel {
     border: 1px solid var(--line);
-    border-radius: var(--radius);
-    background: color-mix(in srgb, var(--surface) 92%, transparent);
+    border-radius: var(--radius-panel);
+    background: color-mix(in srgb, var(--surface) 90%, transparent);
     box-shadow: var(--shadow);
+    backdrop-filter: blur(16px);
 }
 
 .hero-panel {
@@ -350,79 +470,211 @@ input {
 .gradient-hero-panel {
     position: relative;
     display: grid;
-    align-content: end;
+    place-items: center;
     gap: 14px;
-    padding: 22px;
+    padding: 24px;
     background:
-        linear-gradient(135deg, rgba(15, 118, 110, 0.22), transparent 35%),
-        linear-gradient(225deg, rgba(79, 70, 229, 0.24), transparent 42%),
-        linear-gradient(315deg, rgba(217, 119, 6, 0.18), transparent 36%),
-        linear-gradient(160deg, #fff7ed, #eef2ff 48%, #ecfeff);
+        radial-gradient(60% 52% at 16% 10%, rgba(214, 156, 194, 0.22), transparent 60%),
+        radial-gradient(58% 50% at 90% 16%, rgba(141, 123, 247, 0.3), transparent 58%),
+        radial-gradient(55% 50% at 72% 94%, rgba(87, 194, 216, 0.24), transparent 56%),
+        linear-gradient(150deg, #f4eefb, #efe9ff 46%, #e6f8fc);
+    border-radius: 46% 54% 55% 45% / 42% 46% 54% 58%;
+    animation: panelBreath 9s ease-in-out infinite alternate;
 }
 
 .dark-mode .gradient-hero-panel {
     background:
-        linear-gradient(135deg, rgba(45, 212, 191, 0.24), transparent 35%),
-        linear-gradient(225deg, rgba(165, 180, 252, 0.2), transparent 42%),
-        linear-gradient(315deg, rgba(251, 191, 36, 0.15), transparent 36%),
-        linear-gradient(160deg, #17211c, #17152a 48%, #0e2a2a);
+        radial-gradient(60% 52% at 16% 10%, rgba(230, 179, 210, 0.18), transparent 60%),
+        radial-gradient(58% 50% at 90% 16%, rgba(179, 165, 255, 0.26), transparent 58%),
+        radial-gradient(55% 50% at 72% 94%, rgba(131, 216, 234, 0.2), transparent 56%),
+        linear-gradient(150deg, #251a33, #1d1838 46%, #0f2c36);
 }
 
 .gradient-hero-panel::before {
     content: "";
     position: absolute;
-    inset: 20px;
-    border: 1px solid color-mix(in srgb, var(--surface) 62%, transparent);
-    border-radius: var(--radius);
+    inset: 22px;
+    border: 1px solid color-mix(in srgb, var(--surface) 66%, transparent);
+    border-radius: 44% 56% 58% 42% / 52% 44% 56% 48%;
     background:
-        linear-gradient(90deg, color-mix(in srgb, var(--surface) 18%, transparent) 1px, transparent 1px),
-        linear-gradient(color-mix(in srgb, var(--surface) 18%, transparent) 1px, transparent 1px);
+        linear-gradient(90deg, color-mix(in srgb, var(--surface) 22%, transparent) 1px, transparent 1px),
+        linear-gradient(color-mix(in srgb, var(--surface) 22%, transparent) 1px, transparent 1px);
     background-size: 28px 28px;
     pointer-events: none;
+    animation: innerBreath 11s ease-in-out infinite alternate;
 }
 
+/* 悬浮光斑 */
 .gradient-hero-panel::after {
     content: "";
     position: absolute;
-    right: 38px;
-    top: 38px;
+    right: 42px;
+    top: 42px;
     width: 150px;
     height: 150px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0));
-    opacity: 0.75;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
+    opacity: 0.7;
+    pointer-events: none;
+    filter: blur(2px);
+}
+
+/* ============ Hero 面板：呼吸轨道圆盘 ============ */
+.orbit-disk {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    min-height: 420px;
+    display: grid;
+    place-items: center;
+}
+
+/* 中心主圆盘 */
+.orbit-core {
+    position: relative;
+    z-index: 3;
+    width: 232px;
+    height: 232px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    text-align: center;
+    padding: 22px;
+    border: 1px solid color-mix(in srgb, var(--surface) 78%, transparent);
+    border-radius: 46% 54% 52% 48% / 52% 46% 54% 48%;
+    background:
+        radial-gradient(70% 70% at 30% 28%, rgba(255, 255, 255, 0.72), transparent 60%),
+        color-mix(in srgb, var(--surface) 66%, transparent);
+    backdrop-filter: blur(18px);
+    box-shadow: var(--shadow);
+    animation: coreBreath 8s ease-in-out infinite alternate;
+}
+
+.orbit-core span {
+    color: var(--primary-strong);
+    font-size: 0.8rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+}
+
+.orbit-core strong {
+    font-size: clamp(3.4rem, 7vw, 4.8rem);
+    line-height: 0.98;
+    background: linear-gradient(120deg, var(--primary), var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+.orbit-core em {
+    max-width: 200px;
+    margin-top: 4px;
+    color: var(--muted);
+    font-style: normal;
+    font-size: 0.82rem;
+    line-height: 1.5;
+}
+
+/* 轨道环 */
+.orbit-ring {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    border: 1.5px dashed color-mix(in srgb, var(--accent) 38%, transparent);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
     pointer-events: none;
 }
 
-.gradient-card {
-    position: relative;
-    z-index: 1;
-    max-width: 420px;
-    padding: 16px;
-    border: 1px solid color-mix(in srgb, var(--surface) 70%, transparent);
-    border-radius: var(--radius);
+.orbit-ring.ring-1 {
+    width: 300px;
+    height: 300px;
+    animation: ringSpin 34s linear infinite;
+}
+
+.orbit-ring.ring-2 {
+    width: 372px;
+    height: 372px;
+    border-color: color-mix(in srgb, var(--primary) 30%, transparent);
+    animation: ringSpin 48s linear infinite reverse;
+}
+
+/* 轨道上的小标签 */
+.orbit-dot {
+    position: absolute;
+    z-index: 2;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 5px;
+    padding: 7px 12px;
+    border: 1px solid color-mix(in srgb, var(--surface) 80%, transparent);
+    border-radius: 16px 26px 14px 28px;
     background: color-mix(in srgb, var(--surface) 72%, transparent);
-    backdrop-filter: blur(14px);
+    backdrop-filter: blur(12px);
     box-shadow: var(--shadow-soft);
-}
-
-.gradient-card span {
-    color: var(--primary-strong);
-    font-size: 0.78rem;
-    font-weight: 900;
-    text-transform: uppercase;
-}
-
-.gradient-card strong {
-    display: block;
-    margin-top: 4px;
-    font-size: clamp(1.9rem, 4vw, 3.2rem);
-    line-height: 1;
-}
-
-.gradient-card p {
-    margin: 8px 0 0;
     color: var(--muted);
+    font-size: 0.8rem;
+    white-space: nowrap;
+    transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.orbit-dot b {
+    color: var(--primary-strong);
+    font-size: 1.05rem;
+}
+
+.orbit-dot:hover {
+    transform: scale(1.1) rotate(-2deg);
+    box-shadow: var(--shadow);
+}
+
+.dot-a {
+    top: 16%;
+    left: 8%;
+}
+
+.dot-b {
+    top: 30%;
+    right: 2%;
+}
+
+.dot-c {
+    bottom: 14%;
+    right: 12%;
+}
+
+@media (max-width: 680px) {
+    .orbit-ring.ring-1 {
+        width: 250px;
+        height: 250px;
+    }
+
+    .orbit-ring.ring-2 {
+        width: 312px;
+        height: 312px;
+    }
+
+    .orbit-dot {
+        font-size: 0.72rem;
+        padding: 5px 9px;
+    }
+
+    .dot-a {
+        left: 4%;
+    }
+
+    .dot-b {
+        right: 0;
+    }
+
+    .dot-c {
+        right: 6%;
+    }
 }
 
 .graph-stage {
@@ -430,7 +682,7 @@ input {
     height: 100%;
     min-height: 460px;
     background:
-        linear-gradient(135deg, color-mix(in srgb, var(--primary) 8%, transparent), transparent),
+        radial-gradient(60% 50% at 20% 20%, color-mix(in srgb, var(--primary) 12%, transparent), transparent),
         var(--surface);
 }
 
@@ -450,13 +702,14 @@ input {
     gap: 12px;
     padding: 12px;
     border: 1px solid var(--line);
-    border-radius: var(--radius);
-    background: color-mix(in srgb, var(--surface) 88%, transparent);
+    border-radius: var(--radius-input);
+    background: color-mix(in srgb, var(--surface) 90%, transparent);
     backdrop-filter: blur(14px);
     color: var(--muted);
     font-size: 0.86rem;
 }
 
+/* ============ 统计卡 ============ */
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -467,8 +720,19 @@ input {
 .stat-card {
     padding: 16px;
     border: 1px solid var(--line);
-    border-radius: var(--radius);
+    border-radius: var(--radius-card);
     background: var(--surface);
+    box-shadow: var(--shadow-soft);
+    transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.stat-card:hover {
+    transform: scale(1.03) rotate(0.7deg);
+    box-shadow: var(--shadow);
+}
+
+.stat-card:active {
+    transform: scale(0.97) rotate(-0.4deg);
 }
 
 .stat-card strong {
@@ -482,6 +746,7 @@ input {
     font-size: 0.88rem;
 }
 
+/* ============ 区块标题 ============ */
 .section-head,
 .blog-header {
     display: flex;
@@ -506,6 +771,7 @@ input {
     color: var(--muted);
 }
 
+/* ============ 内容网格 ============ */
 .posts-grid,
 .projects-grid,
 .capability-grid,
@@ -519,6 +785,7 @@ input {
     grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
+/* 卡片：多值圆角 + 细描边 + 雾面 */
 .post-card,
 .project-card,
 .capability-card,
@@ -529,9 +796,10 @@ input {
     position: relative;
     overflow: hidden;
     border: 1px solid var(--line);
-    border-radius: var(--radius);
+    border-radius: var(--radius-card);
     background: var(--surface);
     box-shadow: var(--shadow-soft);
+    backdrop-filter: blur(12px);
     transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
 }
 
@@ -542,9 +810,20 @@ input {
 .about-card:hover,
 .collection-card:hover,
 .lane-card:hover {
-    transform: translateY(-4px);
-    border-color: color-mix(in srgb, var(--primary) 45%, var(--line));
+    transform: scale(1.022) rotate(0.5deg);
+    border-color: color-mix(in srgb, var(--primary) 50%, var(--line));
     box-shadow: var(--shadow);
+}
+
+.post-card:active,
+.project-card:active,
+.capability-card:active,
+.route-card:active,
+.about-card:active,
+.collection-card:active,
+.lane-card:active {
+    transform: scale(0.975) rotate(-0.3deg);
+    transition-duration: 140ms;
 }
 
 .post-card::before,
@@ -553,20 +832,24 @@ input {
     position: absolute;
     inset: 0 0 auto 0;
     height: 4px;
-    background: var(--tone, var(--primary));
+    background: linear-gradient(90deg, var(--tone, var(--primary)), color-mix(in srgb, var(--tone, var(--primary)) 35%, var(--accent)));
+    border-radius: 999px 999px 999px 999px;
+    margin-inline: 10px;
+    top: 6px;
 }
 
-.tone-teal { --tone: #0f766e; }
-.tone-indigo { --tone: #4f46e5; }
-.tone-amber { --tone: #d97706; }
-.tone-violet { --tone: #7c3aed; }
-.tone-rose { --tone: #e11d48; }
-.tone-cyan { --tone: #0891b2; }
-.tone-lime { --tone: #65a30d; }
-.tone-orange { --tone: #ea580c; }
-.tone-blue { --tone: #2563eb; }
-.tone-purple { --tone: #9333ea; }
+.tone-teal { --tone: #4fb8ad; }
+.tone-indigo { --tone: #8d7bf7; }
+.tone-amber { --tone: #dfa06a; }
+.tone-violet { --tone: #a58af0; }
+.tone-rose { --tone: #dd94b8; }
+.tone-cyan { --tone: #57c2d8; }
+.tone-lime { --tone: #93c47d; }
+.tone-orange { --tone: #df8b6e; }
+.tone-blue { --tone: #7d9be8; }
+.tone-purple { --tone: #9d7bf0; }
 
+/* 文章卡片头图：柔和渐变 + 手绘圈 */
 .post-image {
     aspect-ratio: 16 / 7.5;
     overflow: hidden;
@@ -576,22 +859,24 @@ input {
     justify-content: space-between;
     padding: 18px;
     background:
-        radial-gradient(circle at 18% 18%, color-mix(in srgb, var(--tone, var(--primary)) 30%, transparent), transparent 34%),
-        radial-gradient(circle at 88% 12%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 32%),
-        linear-gradient(135deg, color-mix(in srgb, var(--tone, var(--primary)) 18%, var(--surface)), color-mix(in srgb, var(--surface) 86%, var(--bg)));
+        radial-gradient(circle at 18% 18%, color-mix(in srgb, var(--tone, var(--primary)) 38%, transparent), transparent 40%),
+        radial-gradient(circle at 88% 12%, color-mix(in srgb, var(--accent) 30%, transparent), transparent 38%),
+        radial-gradient(circle at 70% 88%, color-mix(in srgb, var(--warm) 26%, transparent), transparent 36%),
+        linear-gradient(135deg, color-mix(in srgb, var(--tone, var(--primary)) 22%, var(--surface)), color-mix(in srgb, var(--surface) 88%, var(--bg)));
     border-bottom: 1px solid var(--line);
 }
 
-.post-image::after {
+/* 手绘虚线圆圈 */
+.post-image::before {
     content: "";
     position: absolute;
-    inset: 0;
-    background:
-        linear-gradient(90deg, color-mix(in srgb, var(--surface) 20%, transparent) 1px, transparent 1px),
-        linear-gradient(color-mix(in srgb, var(--surface) 18%, transparent) 1px, transparent 1px);
-    background-size: 24px 24px;
-    opacity: 0.55;
-    pointer-events: none;
+    right: -26px;
+    top: -26px;
+    width: 96px;
+    height: 96px;
+    border: 1.5px dashed color-mix(in srgb, var(--tone, var(--primary)) 40%, transparent);
+    border-radius: 46% 54% 58% 42% / 52% 44% 56% 48%;
+    opacity: 0.65;
 }
 
 .post-image span,
@@ -604,9 +889,9 @@ input {
 .post-image span {
     width: fit-content;
     padding: 5px 9px;
-    border: 1px solid color-mix(in srgb, var(--tone, var(--primary)) 45%, var(--line));
-    border-radius: 999px;
-    background: color-mix(in srgb, var(--surface) 68%, transparent);
+    border: 1px solid color-mix(in srgb, var(--tone, var(--primary)) 50%, var(--line));
+    border-radius: 14px 20px 12px 22px;
+    background: color-mix(in srgb, var(--surface) 72%, transparent);
     color: var(--tone, var(--primary));
     font-size: 0.75rem;
     font-weight: 900;
@@ -643,10 +928,10 @@ input {
     display: inline-flex;
     align-items: center;
     min-height: 28px;
-    padding: 5px 9px;
-    border: 1px solid color-mix(in srgb, var(--primary) 28%, var(--line));
-    border-radius: 999px;
-    background: color-mix(in srgb, var(--primary) 10%, var(--surface));
+    padding: 5px 10px;
+    border: 1px solid color-mix(in srgb, var(--primary) 35%, var(--line));
+    border-radius: 14px 22px 12px 24px;
+    background: linear-gradient(120deg, color-mix(in srgb, var(--primary) 12%, var(--surface)), color-mix(in srgb, var(--accent) 8%, var(--surface)));
     color: var(--primary-strong);
     font-size: 0.78rem;
     font-weight: 800;
@@ -688,10 +973,10 @@ input {
 }
 
 .article-brief div {
-    padding: 10px;
+    padding: 10px 12px;
     border: 1px solid var(--line);
-    border-radius: var(--radius);
-    background: color-mix(in srgb, var(--surface-soft) 70%, transparent);
+    border-radius: var(--radius-input);
+    background: color-mix(in srgb, var(--surface-soft) 74%, transparent);
 }
 
 .article-brief dt {
@@ -708,6 +993,7 @@ input {
     line-height: 1.45;
 }
 
+/* ============ 专题集合 ============ */
 .collection-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -720,7 +1006,8 @@ input {
     display: flex;
     flex-direction: column;
     background:
-        linear-gradient(145deg, color-mix(in srgb, var(--tone, var(--primary)) 12%, transparent), transparent 55%),
+        radial-gradient(80% 70% at 88% 10%, color-mix(in srgb, var(--tone, var(--primary)) 20%, transparent), transparent 55%),
+        radial-gradient(70% 60% at 12% 90%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 55%),
         var(--surface);
 }
 
@@ -750,24 +1037,48 @@ input {
 }
 
 .collection-links a {
-    padding: 8px 10px;
+    padding: 8px 11px;
     border: 1px solid var(--line);
-    border-radius: var(--radius);
+    border-radius: var(--radius-input);
     color: var(--text);
-    background: color-mix(in srgb, var(--surface) 78%, transparent);
+    background: color-mix(in srgb, var(--surface) 82%, transparent);
     font-size: 0.88rem;
+    transition: transform var(--transition), background var(--transition);
 }
 
+.collection-links a:hover {
+    transform: translateX(3px) scale(1.01);
+    background: color-mix(in srgb, var(--primary) 10%, var(--surface));
+}
+
+/* ============ 学习航道：曲线 clip-path 艺术带 ============ */
 .art-band {
     margin-top: 42px;
-    padding: 28px;
+    padding: 30px 28px 34px;
+    position: relative;
     border: 1px solid var(--line);
-    border-radius: var(--radius);
+    border-radius: var(--radius-panel);
     background:
-        linear-gradient(120deg, color-mix(in srgb, var(--primary) 14%, transparent), transparent),
-        linear-gradient(300deg, color-mix(in srgb, var(--warm) 14%, transparent), transparent),
+        radial-gradient(70% 60% at 12% 10%, color-mix(in srgb, var(--primary) 22%, transparent), transparent 55%),
+        radial-gradient(60% 55% at 90% 20%, color-mix(in srgb, var(--accent) 24%, transparent), transparent 52%),
+        radial-gradient(65% 55% at 70% 95%, color-mix(in srgb, var(--warm) 20%, transparent), transparent 55%),
         var(--surface);
     box-shadow: var(--shadow-soft);
+    backdrop-filter: blur(14px);
+    overflow: hidden;
+}
+
+/* 波浪 clip-path 上缘 */
+.art-band::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 26px;
+    background: color-mix(in srgb, var(--bg) 72%, transparent);
+    clip-path: polygon(0 0, 6% 42%, 14% 12%, 26% 52%, 38% 8%, 52% 46%, 66% 14%, 80% 54%, 92% 10%, 100% 40%, 100% 0);
+    pointer-events: none;
 }
 
 .art-band-copy {
@@ -795,18 +1106,25 @@ input {
 
 .lane-card {
     padding: 18px;
-    background: color-mix(in srgb, var(--surface) 88%, transparent);
+    background: color-mix(in srgb, var(--surface) 90%, transparent);
 }
 
+/* 有机序号徽章 */
 .lane-card span {
     display: inline-grid;
     place-items: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: var(--text);
-    color: var(--bg);
+    width: 42px;
+    height: 42px;
+    border-radius: 50% 44% 56% 46% / 48% 58% 42% 52%;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: #ffffff;
     font-weight: 900;
+    box-shadow: var(--shadow-blob);
+    transition: transform var(--transition);
+}
+
+.lane-card:hover span {
+    transform: scale(1.12) rotate(10deg);
 }
 
 .lane-card h3 {
@@ -827,24 +1145,45 @@ input {
 }
 
 .lane-card li {
-    padding: 5px 8px;
+    padding: 5px 9px;
     border: 1px solid var(--line);
-    border-radius: 999px;
+    border-radius: 14px 22px 12px 20px;
     color: var(--muted);
     font-size: 0.78rem;
+    background: color-mix(in srgb, var(--surface-soft) 66%, transparent);
 }
 
+/* ============ 色彩实验室 ============ */
 .color-lab {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
     gap: 24px;
     align-items: center;
     margin-top: 42px;
-    padding: 28px;
+    padding: 30px 28px;
+    position: relative;
     border: 1px solid var(--line);
-    border-radius: var(--radius);
-    background: var(--surface);
+    border-radius: var(--radius-panel);
+    background:
+        radial-gradient(60% 80% at 90% 20%, color-mix(in srgb, var(--warm) 16%, transparent), transparent 60%),
+        var(--surface);
     box-shadow: var(--shadow-soft);
+    backdrop-filter: blur(14px);
+    overflow: hidden;
+}
+
+/* 有机圆点装饰 */
+.color-lab::after {
+    content: "";
+    position: absolute;
+    left: 34px;
+    bottom: -30px;
+    width: 90px;
+    height: 90px;
+    border: 1.5px dashed color-mix(in srgb, var(--accent) 40%, transparent);
+    border-radius: 55% 45% 48% 52% / 46% 58% 42% 54%;
+    opacity: 0.5;
+    pointer-events: none;
 }
 
 .swatch-row {
@@ -852,12 +1191,18 @@ input {
     gap: 12px;
 }
 
+/* 不规则色块 */
 .swatch-row span {
-    width: 52px;
-    height: 80px;
-    border-radius: var(--radius);
+    width: 54px;
+    height: 84px;
+    border-radius: 42% 58% 46% 54% / 52% 42% 58% 48%;
     background: var(--swatch);
     box-shadow: var(--shadow-soft);
+    transition: transform var(--transition);
+}
+
+.swatch-row span:hover {
+    transform: scale(1.14) rotate(6deg);
 }
 
 .tech-tags,
@@ -873,12 +1218,19 @@ input {
 .skill-cloud span,
 .skill-cloud li {
     display: inline-flex;
-    padding: 6px 10px;
+    padding: 6px 11px;
     border: 1px solid var(--line);
-    border-radius: 999px;
+    border-radius: 14px 22px 12px 24px;
     color: var(--muted);
-    background: var(--surface-soft);
+    background: linear-gradient(120deg, color-mix(in srgb, var(--surface-soft) 80%, transparent), color-mix(in srgb, var(--surface) 70%, transparent));
     list-style: none;
+    transition: transform var(--transition);
+}
+
+.tech-tags span:hover,
+.skill-cloud span:hover,
+.skill-cloud li:hover {
+    transform: scale(1.05) rotate(-1deg);
 }
 
 .project-categories {
@@ -887,20 +1239,29 @@ input {
 
 .category-btn {
     min-height: 38px;
-    padding: 8px 13px;
+    padding: 8px 14px;
     border: 1px solid var(--line);
-    border-radius: 999px;
+    border-radius: 16px 26px 14px 28px;
     background: var(--surface);
     color: var(--muted);
     cursor: pointer;
     font-weight: 750;
+    transition: transform var(--transition), background var(--transition), color var(--transition);
 }
 
 .category-btn.active,
 .category-btn:hover {
-    background: var(--primary);
+    background: linear-gradient(120deg, var(--primary), var(--accent));
     color: #ffffff;
     border-color: transparent;
+}
+
+.category-btn:hover {
+    transform: scale(1.05);
+}
+
+.category-btn:active {
+    transform: scale(0.95);
 }
 
 .project-section {
@@ -917,8 +1278,8 @@ input {
     height: 44px;
     display: grid;
     place-items: center;
-    border-radius: var(--radius);
-    background: var(--surface-soft);
+    border-radius: 44% 56% 50% 50% / 52% 46% 54% 48%;
+    background: linear-gradient(135deg, color-mix(in srgb, var(--primary) 16%, var(--surface)), color-mix(in srgb, var(--accent) 14%, var(--surface)));
     color: var(--primary-strong);
     font-weight: 900;
 }
@@ -934,6 +1295,7 @@ input {
     color: var(--primary-strong);
 }
 
+/* ============ 关于页 ============ */
 .about-layout {
     display: grid;
     grid-template-columns: minmax(280px, 0.8fr) minmax(0, 1.2fr);
@@ -941,14 +1303,16 @@ input {
     align-items: start;
 }
 
+/* 有机头像轮廓 */
 .avatar-circle {
     width: 132px;
     height: 132px;
-    border-radius: 50%;
+    border-radius: 48% 52% 55% 45% / 52% 46% 54% 48%;
     overflow: hidden;
     border: 4px solid var(--surface);
     box-shadow: var(--shadow);
     margin-bottom: 18px;
+    animation: avatarBreath 8s ease-in-out infinite alternate;
 }
 
 .avatar-circle img {
@@ -963,18 +1327,42 @@ input {
     margin-top: 18px;
 }
 
+/* 时间线：左侧有机圆点 */
 .timeline-item {
-    padding: 14px 16px;
-    border-left: 3px solid var(--primary);
+    position: relative;
+    padding: 14px 18px;
+    border-left: 3px solid transparent;
+    border-image: linear-gradient(180deg, var(--primary), var(--accent)) 1;
     background: var(--surface);
-    border-radius: 0 var(--radius) var(--radius) 0;
+    border-radius: 0 var(--radius-input) var(--radius-input) 0;
+    box-shadow: var(--shadow-soft);
+    transition: transform var(--transition);
 }
 
+.timeline-item::before {
+    content: "";
+    position: absolute;
+    left: -13px;
+    top: 18px;
+    width: 12px;
+    height: 12px;
+    border-radius: 55% 45% 50% 50% / 48% 58% 42% 52%;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+}
+
+.timeline-item:hover {
+    transform: translateX(4px) scale(1.008);
+}
+
+/* ============ 页脚 ============ */
 .footer {
     border-top: 1px solid var(--line);
     padding: 28px 0;
     color: var(--muted);
-    background: color-mix(in srgb, var(--surface) 72%, transparent);
+    background: color-mix(in srgb, var(--surface) 70%, transparent);
+    backdrop-filter: blur(16px);
+    position: relative;
+    z-index: 1;
 }
 
 .footer .container {
@@ -995,21 +1383,31 @@ input {
     display: grid;
     place-items: center;
     border: 1px solid var(--line);
-    border-radius: 50%;
+    border-radius: 46% 54% 50% 50% / 52% 46% 54% 48%;
     background: var(--surface);
+    transition: transform var(--transition), background var(--transition);
 }
 
+.social-links a:hover {
+    transform: scale(1.12) rotate(8deg);
+    background: color-mix(in srgb, var(--primary) 12%, var(--surface));
+}
+
+/* ============ 文章正文：保持规整矩形保证可读 ============ */
 .article-container {
     width: min(100% - 40px, 980px);
     margin-inline: auto;
     padding: 34px 0 70px;
+    position: relative;
+    z-index: 1;
 }
 
 .article-content {
-    background: color-mix(in srgb, var(--surface) 80%, transparent);
+    background: color-mix(in srgb, var(--surface) 86%, transparent);
     border: 1px solid var(--line);
-    border-radius: var(--radius);
+    border-radius: var(--radius-article);
     box-shadow: var(--shadow-soft);
+    backdrop-filter: blur(14px);
 }
 
 .essay-page {
@@ -1020,7 +1418,8 @@ input {
     position: relative;
     padding: clamp(28px, 6vw, 58px);
     background:
-        linear-gradient(135deg, color-mix(in srgb, var(--tone, var(--primary)) 16%, transparent), transparent 62%),
+        radial-gradient(65% 60% at 12% 15%, color-mix(in srgb, var(--tone, var(--primary)) 24%, transparent), transparent 58%),
+        radial-gradient(55% 50% at 90% 20%, color-mix(in srgb, var(--accent) 20%, transparent), transparent 55%),
         var(--surface);
 }
 
@@ -1031,9 +1430,10 @@ input {
     top: 32px;
     width: 110px;
     height: 110px;
-    border: 1px solid color-mix(in srgb, var(--tone, var(--primary)) 42%, transparent);
-    border-radius: 50%;
+    border: 1.5px dashed color-mix(in srgb, var(--tone, var(--primary)) 48%, transparent);
+    border-radius: 46% 54% 58% 42% / 52% 44% 56% 48%;
     opacity: 0.7;
+    animation: slowSpin 24s linear infinite;
 }
 
 .essay-hero h1 {
@@ -1084,6 +1484,7 @@ input {
     color: var(--muted);
 }
 
+/* 内容盒子：规整圆角、雾面、细描边 */
 .highlight-box,
 .model-category,
 .qa-section,
@@ -1094,9 +1495,10 @@ input {
 .download-section,
 .table-container {
     border: 1px solid var(--line);
-    border-radius: var(--radius);
-    background: var(--surface);
+    border-radius: var(--radius-article);
+    background: color-mix(in srgb, var(--surface) 92%, transparent);
     box-shadow: var(--shadow-soft);
+    backdrop-filter: blur(10px);
 }
 
 table {
@@ -1114,18 +1516,24 @@ td {
 
 th {
     color: #ffffff;
-    background: var(--primary);
+    background: linear-gradient(120deg, var(--primary), var(--accent));
 }
 
+/* ============ 滚动显现（默认可见，JS 启动后才进入隐藏→显现流程） ============ */
 .reveal {
     opacity: 1;
-    transform: translateY(0);
-    transition: opacity 520ms ease, transform 520ms ease;
+    transform: none;
+}
+
+.reveal.is-hidden {
+    opacity: 0;
+    transform: translateY(18px) scale(0.985);
+    transition: opacity 700ms ease, transform 700ms cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 .reveal.is-visible {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
 }
 
 .text-center {
@@ -1138,6 +1546,7 @@ th {
     align-items: center;
 }
 
+/* ============ 动效降级 ============ */
 @media (prefers-reduced-motion: reduce) {
     html {
         scroll-behavior: auto;
@@ -1147,10 +1556,12 @@ th {
     *::before,
     *::after {
         animation-duration: 1ms !important;
+        animation-iteration-count: 1 !important;
         transition-duration: 1ms !important;
     }
 }
 
+/* ============ 响应式 ============ */
 @media (max-width: 920px) {
     .hero-grid,
     .about-layout {

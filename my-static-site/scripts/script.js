@@ -153,6 +153,15 @@
             return;
         }
 
+        // JS 就绪后先隐藏，再交给 IntersectionObserver 逐个显现。
+        // 若 JS 未运行或环境不支持 IO，元素保持默认可见，避免内容丢失。
+        if (!("IntersectionObserver" in window)) {
+            revealItems.forEach((item) => item.classList.add("is-visible"));
+            return;
+        }
+
+        revealItems.forEach((item) => item.classList.add("is-hidden"));
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
@@ -195,6 +204,22 @@
         window.addEventListener("resize", updateProgress);
     }
 
+    // 有机 blob 路径：用三次贝塞尔模拟不规则圆
+    function blobPath(ctx, cx, cy, r, wobble) {
+        const seed = (cx * 13 + cy * 7) % 10;
+        const r1 = r * (1 + wobble * Math.sin(seed * 0.9 + 0.4));
+        const r2 = r * (1 + wobble * Math.cos(seed * 1.1 + 1.2));
+        const r3 = r * (1 + wobble * Math.sin(seed * 0.7 + 2.1));
+        const r4 = r * (1 + wobble * Math.cos(seed * 1.3 + 3.3));
+        ctx.beginPath();
+        ctx.moveTo(cx + r1, cy);
+        ctx.bezierCurveTo(cx + r1, cy - r2 * 0.7, cx + r2 * 0.7, cy - r2, cx, cy - r2);
+        ctx.bezierCurveTo(cx - r2 * 0.7, cy - r2, cx - r3, cy - r3 * 0.7, cx - r3, cy);
+        ctx.bezierCurveTo(cx - r3, cy + r3 * 0.7, cx - r4 * 0.7, cy + r4, cx, cy + r4);
+        ctx.bezierCurveTo(cx + r4 * 0.7, cy + r4, cx + r1, cy + r1 * 0.7, cx + r1, cy);
+        ctx.closePath();
+    }
+
     function drawGraph() {
         const canvas = document.getElementById("knowledgeGraph");
         if (!canvas || !data.graph) {
@@ -234,7 +259,7 @@
 
         const nodeById = new Map(nodes.map((node) => [node.id, node]));
 
-        const pulse = 1 + Math.sin(Date.now() / 1200) * 0.08;
+        const pulse = 1 + Math.sin(Date.now() / 1200) * 0.06;
         ctx.lineWidth = 1.4 * pulse;
         data.graph.links.forEach(([sourceId, targetId]) => {
             const source = nodeById.get(sourceId);
@@ -243,14 +268,17 @@
                 return;
             }
 
+            // 柔和曲线连线
+            const mx = (source.px + target.px) / 2 + (target.py - source.py) * 0.12;
+            const my = (source.py + target.py) / 2 - (target.px - source.px) * 0.12;
             const gradient = ctx.createLinearGradient(source.px, source.py, target.px, target.py);
             gradient.addColorStop(0, colors.primary);
             gradient.addColorStop(1, colors.accent);
             ctx.strokeStyle = gradient;
-            ctx.globalAlpha = 0.52;
+            ctx.globalAlpha = 0.5;
             ctx.beginPath();
             ctx.moveTo(source.px, source.py);
-            ctx.lineTo(target.px, target.py);
+            ctx.quadraticCurveTo(mx, my, target.px, target.py);
             ctx.stroke();
         });
 
@@ -259,15 +287,15 @@
             const radius = (node.group === "core" ? 34 : 24) * pulse;
             const fill = node.group === "skill" ? colors.accent : node.group === "resource" ? colors.warm : colors.primary;
 
-            ctx.beginPath();
-            ctx.arc(node.px, node.py, radius + 8, 0, Math.PI * 2);
+            // 柔和光晕
+            blobPath(ctx, node.px, node.py, radius + 10, 0.08);
             ctx.fillStyle = fill;
-            ctx.globalAlpha = 0.16;
+            ctx.globalAlpha = 0.14;
             ctx.fill();
 
+            // 有机主体
             ctx.globalAlpha = 1;
-            ctx.beginPath();
-            ctx.arc(node.px, node.py, radius, 0, Math.PI * 2);
+            blobPath(ctx, node.px, node.py, radius, 0.12);
             ctx.fillStyle = colors.surface;
             ctx.fill();
             ctx.lineWidth = 2;

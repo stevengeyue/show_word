@@ -10,6 +10,12 @@
     <link rel="stylesheet" href="styles/animations.css">
 </head>
 <body class="site-spotlight">
+    <div class="blob-field" aria-hidden="true">
+        <span class="blob-pink"></span>
+        <span class="blob-purple"></span>
+        <span class="blob-cyan"></span>
+        <span class="blob-pink-sm"></span>
+    </div>
     <nav class="navbar">
         <div class="nav-container">
             <a href="index.html" class="logo">歌月菌</a>
@@ -42,20 +48,17 @@
             </div>
 
             <div class="hero-panel gradient-hero-panel" aria-label="博客渐变视觉面板">
-                <div class="gradient-card">
-                    <span>Articles</span>
-                    <strong>16</strong>
-                    <p>学习笔记 / 辩论深读 / 项目复盘</p>
-                </div>
-                <div class="gradient-card">
-                    <span>Topics</span>
-                    <strong>5</strong>
-                    <p>算法建模 / 数据表达 / 工程产品 / 学习工具 / 公共议题</p>
-                </div>
-                <div class="gradient-card">
-                    <span>Archive</span>
-                    <strong>2023-2026</strong>
-                    <p>按时间展开的个人知识记录</p>
+                <div class="orbit-disk">
+                    <div class="orbit-core">
+                        <span>Articles</span>
+                        <strong>16</strong>
+                        <em>学习笔记 · 辩论深读 · 项目复盘</em>
+                    </div>
+                    <span class="orbit-ring ring-1" aria-hidden="true"></span>
+                    <span class="orbit-ring ring-2" aria-hidden="true"></span>
+                    <span class="orbit-dot dot-a">算法建模</span>
+                    <span class="orbit-dot dot-b">数据表达</span>
+                    <span class="orbit-dot dot-c">工程实践</span>
                 </div>
             </div>
         </section>
@@ -109,11 +112,11 @@
                 <p>保留清晰的博客结构，同时加入更柔和的渐变色、彩色专题卡、鼠标光晕、纸面网格和更有层级的内容区。</p>
             </div>
             <div class="swatch-row" aria-label="设计色彩">
-                <span style="--swatch:#0f766e"></span>
-                <span style="--swatch:#4f46e5"></span>
-                <span style="--swatch:#d97706"></span>
-                <span style="--swatch:#e11d48"></span>
-                <span style="--swatch:#0891b2"></span>
+                <span style="--swatch:#d69cc2"></span>
+                <span style="--swatch:#8d7bf7"></span>
+                <span style="--swatch:#57c2d8"></span>
+                <span style="--swatch:#b3a5ff"></span>
+                <span style="--swatch:#4fb8ad"></span>
             </div>
         </section>
     </main>
